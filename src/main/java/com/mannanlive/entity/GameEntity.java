@@ -1,13 +1,11 @@
 package com.mannanlive.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "console"})} )
-public class Game {
+public class GameEntity {
     @Id
     @GeneratedValue
     private long id;
@@ -16,9 +14,9 @@ public class Game {
     private String developer;
     private String publisher;
     private boolean exclusive;
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date naReleaseDate;
+    private Date releaseDate;
     private String console;
+
     //todo: add wikipedia link, you can get this from the first column
 
     public long getId() {
@@ -69,12 +67,12 @@ public class Game {
         return exclusive;
     }
 
-    public void setNaReleaseDate(Date naReleaseDate) {
-        this.naReleaseDate = naReleaseDate;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public Date getNaReleaseDate() {
-        return naReleaseDate;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
     public void setConsole(String console) {

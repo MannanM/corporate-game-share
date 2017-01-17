@@ -1,6 +1,6 @@
 package com.mannanlive.configuration;
 
-import com.mannanlive.entity.Game;
+import com.mannanlive.entity.GameEntity;
 import com.mannanlive.repository.GameRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,8 +54,8 @@ public class GameListRefreshConfiguration {
         }
     }
 
-    private void upsertGame(Game game) {
-        Game entity = repository.findByNameAndConsole(game.getName(), game.getConsole());
+    private void upsertGame(GameEntity game) {
+        GameEntity entity = repository.findByNameAndConsole(game.getName(), game.getConsole());
         if (entity != null) {
             game.setId(entity.getId());
         }
@@ -65,22 +65,22 @@ public class GameListRefreshConfiguration {
     private void processRow(String console, Element row) {
         Elements cells = row.select("td");
         if (cells.size() >= NA_DATE_COLUMN) {
-            Game game = extractGameData(cells);
+            GameEntity game = extractGameData(cells);
             game.setConsole(console);
             upsertGame(game);
         }
     }
 
-    private Game extractGameData(Elements cells) {
+    private GameEntity extractGameData(Elements cells) {
         //todo: nicer way to do this
         Element[] tds = cells.toArray(new Element[10]);
-        Game game = new Game();
+        GameEntity game = new GameEntity();
         game.setName(tds[0].text());
-        game.setGenres(format("%s,", tds[1].text()));
+        game.setGenres(format("%s,", tds[1].text().toLowerCase()));
         game.setDeveloper(tds[2].text());
         game.setPublisher(tds[3].text());
         game.setExclusive(isExclusive(tds[4].text()));
-        game.setNaReleaseDate(getReleaseDate(tds[NA_DATE_COLUMN]));
+        game.setReleaseDate(getReleaseDate(tds[NA_DATE_COLUMN]));
         return game;
     }
 
