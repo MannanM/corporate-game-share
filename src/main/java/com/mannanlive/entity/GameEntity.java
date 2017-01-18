@@ -1,21 +1,40 @@
 package com.mannanlive.entity;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import java.time.LocalDate;
+import java.util.List;
 
-@Entity
+@Entity(name = "game")
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "console"})} )
 public class GameEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private String genres;
+    @ElementCollection
+    @CollectionTable
+    private List<String> genres;
     private String developer;
     private String publisher;
     private boolean exclusive;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private String console;
+
+    public GameEntity() {
+        //for hibernate
+    }
+
+    public GameEntity(String name, String console) {
+        this.name = name;
+        this.console = console;
+    }
 
     //todo: add wikipedia link, you can get this from the first column
 
@@ -33,14 +52,6 @@ public class GameEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setGenres(String genres) {
-        this.genres = genres;
-    }
-
-    public String getGenres() {
-        return genres;
     }
 
     public void setDeveloper(String developer) {
@@ -67,11 +78,11 @@ public class GameEntity {
         return exclusive;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
@@ -81,5 +92,13 @@ public class GameEntity {
 
     public String getConsole() {
         return console;
+    }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
     }
 }

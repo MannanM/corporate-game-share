@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @JsonPropertyOrder({"name", "console", "exclusive", "developer", "publisher", "releaseDate", "genres"})
@@ -26,7 +26,7 @@ public class GameAttributes {
 
     @JsonFormat(pattern="yyyy-MM-dd")
     @ApiModelProperty(readOnly = true, example = "2014-09-13", position = 5)
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @ApiModelProperty(readOnly = true, position = 6)
     private List<String> genres;
@@ -71,11 +71,11 @@ public class GameAttributes {
         this.exclusive = exclusive;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

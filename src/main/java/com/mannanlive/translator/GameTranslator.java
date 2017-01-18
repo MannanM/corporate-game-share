@@ -20,16 +20,7 @@ public class GameTranslator {
         json.getData().getAttributes().setExclusive(entity.isExclusive());
         json.getData().getAttributes().setPublisher(entity.getPublisher());
         json.getData().getAttributes().setReleaseDate(entity.getReleaseDate());
-        json.getData().getAttributes().setGenres(addGenres(entity.getGenres()));
+        json.getData().getAttributes().setGenres(entity.getGenres());
         return json;
-    }
-
-    private List<String> addGenres(String genreString) {
-        String[] genres = genreString.split(GENRE_SEPARATOR);
-        List<String> genreList = new ArrayList<>(genres.length);
-        for (String genre : genres) {
-            genreList.add(genre.trim());
-        }
-        return genreList;
     }
 }

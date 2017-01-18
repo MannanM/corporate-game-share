@@ -2,6 +2,7 @@ package com.mannanlive.configuration;
 
 import com.mannanlive.entity.GameEntity;
 import com.mannanlive.repository.GameRepository;
+import com.mannanlive.translator.WikiElementTranslator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,11 +14,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import static java.lang.String.format;
 
@@ -33,7 +29,7 @@ public class GameListRefreshConfiguration {
 
     @Autowired
     private GameRepository repository;
-    private DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+    private WikiElementTranslator translator = new WikiElementTranslator();
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24)
     public void refreshGames() {
@@ -76,39 +72,12 @@ public class GameListRefreshConfiguration {
         Element[] tds = cells.toArray(new Element[10]);
         GameEntity game = new GameEntity();
         game.setName(tds[0].text());
-        game.setGenres(format("%s,", tds[1].text().toLowerCase()));
+        game.setGenres(translator.extractList(tds[1]));
         game.setDeveloper(tds[2].text());
         game.setPublisher(tds[3].text());
         game.setExclusive(isExclusive(tds[4].text()));
-        game.setReleaseDate(getReleaseDate(tds[NA_DATE_COLUMN]));
+        game.setReleaseDate(translator.extractDate(tds[NA_DATE_COLUMN]));
         return game;
-    }
-
-    //todo: pull this out to a wiki td date translator class?
-    private Date getReleaseDate(Element td) {
-        try {
-            if (td.children().size() == 2) {
-                //<span class="sortkey" style="display:none;speak:none">000000002015-04-22-0000</span>
-                //<span style="white-space:nowrap">April 22, 2015</span>
-                return format.parse(correctPartialDates(td));
-            }
-        } catch (ParseException e) {
-            System.out.println(td.text());
-        }
-        return null;
-    }
-
-    private String correctPartialDates(Element td) {
-        String text = td.child(1).text();
-        if (text.length() == 4) {
-            //2017
-            return format("December 31, %s", text);
-        }
-        if (text.length() == 8) {
-            //Jul 2017
-            return format("%s 1, %s", text.substring(0, 3), text.substring(4, 7));
-        }
-        return text;
     }
 
     private boolean isExclusive(String text) {
