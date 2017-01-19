@@ -1,53 +1,93 @@
 package com.mannanlive.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "user")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(unique = true)
-    private String email;
-
-    private String organisation;
-
+    @NotEmpty
     private String name;
 
-    public long getId() {
+    @NotEmpty
+    @Column(unique = true, nullable = false)
+    private String login;
+
+    @NotEmpty
+    private String password;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = {
+            @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id")
+    })
+    private Set<RoleEntity> roles = new HashSet<>();
+
+    public UserEntity() {
+    }
+
+    public UserEntity(UserEntity user) {
+        super();
+        this.id = user.getId();
+        this.name = user.getName();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.roles = user.getRoles();
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setOrganisation(String organisation) {
-        this.organisation = organisation;
-    }
-
-    public String getOrganisation() {
-        return organisation;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
 }
