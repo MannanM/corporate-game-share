@@ -27,7 +27,7 @@ public class UserService {
 //        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
 //        user.setRole(new Role(Integer.valueOf(1), user));
 
-        UserEntity userEntity = new UserEntity();
+        UserEntity userEntity = new UserEntity("something@something.com", "Test", "hahah");
 //        userEntity.setEmail(request.getEmail());
 //        userEntity.setOrganisation(request.getEmail().split("@")[1]);
         userEntity.setName(request.getEmail().split("@")[0]);

@@ -1,5 +1,6 @@
 package com.mannanlive.repository;
 
+import com.mannanlive.entity.ConsoleEntity;
 import com.mannanlive.entity.GameEntity;
 import com.mannanlive.entity.GameState;
 import com.mannanlive.entity.UserEntity;
@@ -20,7 +21,7 @@ public class UserGameRepositoryIntegrationTest extends AbstractRepositoryIntegra
 
     @Test
     public void persistUserEntityGeneratesId() {
-        UserEntity user = entityManager.persist(new UserEntity());
+        UserEntity user = entityManager.persist(new UserEntity("something@something.com", "Test", "hahah"));
         UserGameEntity secondGame = createAndPersistUserGame(user, "Test Game", LocalDateTime.now());
         UserGameEntity firstGame = createAndPersistUserGame(user, "Second Test Game",
                 LocalDateTime.of(2014, Month.DECEMBER, 12, 12, 12));
@@ -37,7 +38,7 @@ public class UserGameRepositoryIntegrationTest extends AbstractRepositoryIntegra
     }
 
     private GameEntity createGame(String gameName) {
-        return entityManager.persist(new GameEntity(gameName, "Test Console"));
+        return entityManager.persist(new GameEntity(gameName, new ConsoleEntity(1L)));
     }
 
     private UserGameEntity createUserGame(GameEntity game, UserEntity user, LocalDateTime now) {

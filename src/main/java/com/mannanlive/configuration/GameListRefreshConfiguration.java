@@ -37,14 +37,12 @@ public class GameListRefreshConfiguration {
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24)
     public void refreshGames() {
-        for (ConsoleEntity console : consoleRepository.findAll()) {
-            refreshGamesForPlatform(console.getConsole());
-        }
+        consoleRepository.findAll().forEach(this::refreshGamesForPlatform);
     }
 
-    private void refreshGamesForPlatform(final String console) {
+    private void refreshGamesForPlatform(final ConsoleEntity console) {
         try {
-            Document document = Jsoup.connect(format(WIKI_PAGE, console)).get();
+            Document document = Jsoup.connect(format(WIKI_PAGE, console.getWikiName())).get();
             Elements tableRows = document.select("#" + WIKI_TABLE_NAME + " tr");
             for (Element row : tableRows) {
                 processRow(console, row);
@@ -62,7 +60,7 @@ public class GameListRefreshConfiguration {
         gameRepository.save(game);
     }
 
-    private void processRow(String console, Element row) {
+    private void processRow(ConsoleEntity console, Element row) {
         Elements cells = row.select("td");
         if (cells.size() >= NA_DATE_COLUMN) {
             GameEntity game = extractGameData(cells);

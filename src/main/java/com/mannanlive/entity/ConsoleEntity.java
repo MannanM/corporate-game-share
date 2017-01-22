@@ -3,14 +3,24 @@ package com.mannanlive.entity;
 import javax.persistence.*;
 
 @Entity(name = "console")
-@Table(name = "CONSOLE", uniqueConstraints = {@UniqueConstraint(columnNames = {"console"})} )
 public class ConsoleEntity {
     @Id
     @GeneratedValue
     private Long id;
-    private String console;
+    @Column(unique = true)
+    private String name;
+    private String shortName;
+    private String wikiName;
     private String developer;
     private String manufacturer;
+
+    public ConsoleEntity() {
+        //for hibernate
+    }
+
+    public ConsoleEntity(long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -20,12 +30,28 @@ public class ConsoleEntity {
         this.id = id;
     }
 
-    public String getConsole() {
-        return console;
+    public String getName() {
+        return name;
     }
 
-    public void setConsole(String console) {
-        this.console = console;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public String getWikiName() {
+        return wikiName;
+    }
+
+    public void setWikiName(String wikiName) {
+        this.wikiName = wikiName;
     }
 
     public String getDeveloper() {

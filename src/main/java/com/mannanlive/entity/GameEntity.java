@@ -6,18 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "game")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "console"})} )
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "console_id"})} )
 public class GameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
     @ElementCollection
     @CollectionTable
     private List<String> genres;
@@ -25,13 +27,15 @@ public class GameEntity {
     private String publisher;
     private boolean exclusive;
     private LocalDate releaseDate;
-    private String console;
+
+    @ManyToOne
+    private ConsoleEntity console;
 
     public GameEntity() {
         //for hibernate
     }
 
-    public GameEntity(String name, String console) {
+    public GameEntity(String name, ConsoleEntity console) {
         this.name = name;
         this.console = console;
     }
@@ -86,11 +90,11 @@ public class GameEntity {
         return releaseDate;
     }
 
-    public void setConsole(String console) {
+    public void setConsole(ConsoleEntity console) {
         this.console = console;
     }
 
-    public String getConsole() {
+    public ConsoleEntity getConsole() {
         return console;
     }
 

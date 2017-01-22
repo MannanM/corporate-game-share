@@ -3,6 +3,7 @@ package com.mannanlive.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,7 +40,13 @@ public class UserEntity {
     })
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity() {
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<ConsoleEntity> consoles;
+
+    public UserEntity(String login, String name, String password) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
     }
 
     public UserEntity(UserEntity user) {
@@ -90,4 +98,11 @@ public class UserEntity {
         this.roles = roles;
     }
 
+    public Set<ConsoleEntity> getConsoles() {
+        return consoles;
+    }
+
+    public void setConsoles(Set<ConsoleEntity> consoles) {
+        this.consoles = consoles;
+    }
 }

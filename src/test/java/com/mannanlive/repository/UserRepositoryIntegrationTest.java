@@ -12,7 +12,8 @@ public class UserRepositoryIntegrationTest extends AbstractRepositoryIntegration
 
     @Test
     public void persistUserEntityGeneratesId() {
-        UserEntity expected = entityManager.persist(new UserEntity());
+        UserEntity entity = new UserEntity("something@something.com", "Test", "hahah");
+        UserEntity expected = entityManager.persist(entity);
 
         UserEntity actual = repository.findOne(expected.getId());
 

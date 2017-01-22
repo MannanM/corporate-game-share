@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component;
 public class ConsoleTranslator {
     public Console translate(ConsoleEntity entity) {
         Console console = new Console();
-        console.getData().setId(entity.getId());
-        console.getData().getAttributes().setName(entity.getConsole());
-        console.getData().getAttributes().setDeveloper(entity.getDeveloper());
-        console.getData().getAttributes().setManufacturer(entity.getManufacturer());
+        console.setId(entity.getId().toString());
+        console.getAttributes().setName(entity.getName());
+        console.getAttributes().setShortName(entity.getShortName());
+        console.getAttributes().setDeveloper(entity.getDeveloper());
+        console.getAttributes().setManufacturer(entity.getManufacturer());
         return console;
     }
 }

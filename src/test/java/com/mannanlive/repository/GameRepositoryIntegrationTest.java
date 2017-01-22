@@ -1,5 +1,6 @@
 package com.mannanlive.repository;
 
+import com.mannanlive.entity.ConsoleEntity;
 import com.mannanlive.entity.GameEntity;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,19 @@ public class GameRepositoryIntegrationTest extends AbstractRepositoryIntegration
 
     @Test
     public void persistUserEntityGeneratesId() {
-        GameEntity expected = entityManager.persist(new GameEntity("Test Game", "Test Console"));
+        GameEntity expected = entityManager.persist(new GameEntity("Test Game", new ConsoleEntity(1L)));
 
-        GameEntity actual = repository.findByNameAndConsole("Test Game", "Test Console");
+        GameEntity actual = repository.findByNameAndConsole("Test Game", new ConsoleEntity(1L));
 
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void findAllGenresReturnsUniqueSortedList() {
-        GameEntity entity = new GameEntity("Test Game", "Test Console");
+        GameEntity entity = new GameEntity("Test Game", new ConsoleEntity(1L));
         entity.setGenres(Arrays.asList("b", "a"));
         entityManager.persist(entity);
-        entity = new GameEntity("Test Game2", "Test Console2");
+        entity = new GameEntity("Test Game2", new ConsoleEntity(1L));
         entity.setGenres(Arrays.asList("c", "b"));
         entityManager.persist(entity);
 

@@ -41,6 +41,10 @@ public class OAuth2ServerConfiguration {
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
+//            http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and().formLogin()
+//                    .permitAll();
+
+
             http.authorizeRequests()
                     .antMatchers("/users").hasRole("ADMIN")
                     .antMatchers("/v1/games/genres").authenticated()

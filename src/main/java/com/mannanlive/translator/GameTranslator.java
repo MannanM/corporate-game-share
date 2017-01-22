@@ -6,13 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GameTranslator {
-    private static final String GENRE_SEPARATOR = ",";
-
     public Game translate(GameEntity entity) {
         Game json = new Game();
         json.getData().setId(String.format("%d", entity.getId()));
         json.getData().getAttributes().setName(entity.getName());
-        json.getData().getAttributes().setConsole(entity.getConsole());
+        json.getData().getAttributes().setConsole(entity.getConsole().getName());
         json.getData().getAttributes().setDeveloper(entity.getDeveloper());
         json.getData().getAttributes().setExclusive(entity.isExclusive());
         json.getData().getAttributes().setPublisher(entity.getPublisher());
