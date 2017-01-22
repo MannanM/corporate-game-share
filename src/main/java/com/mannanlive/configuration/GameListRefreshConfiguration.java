@@ -1,6 +1,8 @@
 package com.mannanlive.configuration;
 
+import com.mannanlive.entity.ConsoleEntity;
 import com.mannanlive.entity.GameEntity;
+import com.mannanlive.repository.ConsoleRepository;
 import com.mannanlive.repository.GameRepository;
 import com.mannanlive.translator.WikiElementTranslator;
 import org.jsoup.Jsoup;
@@ -23,19 +25,21 @@ import static java.lang.String.format;
 public class GameListRefreshConfiguration {
     private static final String WIKI_PAGE = "https://en.wikipedia.org/wiki/List_of_%s_games";
     private static final String WIKI_TABLE_NAME = "softwarelist";
-    private static final String PLAY_STATION_4 = "PlayStation_4";
-    private static final String XBOX_ONE = "Xbox_One";
     private static final int NA_DATE_COLUMN = 7;
 
     @Autowired
-    private GameRepository repository;
+    private GameRepository gameRepository;
+
+    @Autowired
+    private ConsoleRepository consoleRepository;
+
     private WikiElementTranslator translator = new WikiElementTranslator();
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24)
     public void refreshGames() {
-        //todo: get consoles from console repository and pass in here. console.id, console.name, console.wiki_name
-        refreshGamesForPlatform(PLAY_STATION_4);
-        refreshGamesForPlatform(XBOX_ONE);
+        for (ConsoleEntity console : consoleRepository.findAll()) {
+            refreshGamesForPlatform(console.getConsole());
+        }
     }
 
     private void refreshGamesForPlatform(final String console) {
@@ -51,11 +55,11 @@ public class GameListRefreshConfiguration {
     }
 
     private void upsertGame(GameEntity game) {
-        GameEntity entity = repository.findByNameAndConsole(game.getName(), game.getConsole());
+        GameEntity entity = gameRepository.findByNameAndConsole(game.getName(), game.getConsole());
         if (entity != null) {
             game.setId(entity.getId());
         }
-        repository.save(game);
+        gameRepository.save(game);
     }
 
     private void processRow(String console, Element row) {

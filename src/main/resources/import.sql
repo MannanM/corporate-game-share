@@ -10,3 +10,9 @@ insert into user_role(user_id, role_id) values (1,1);
 insert into user_role(user_id, role_id) values (1,2);
 insert into user_role(user_id, role_id) values (2,1);
 insert into user_role(user_id, role_id) values (3,1);
+
+INSERT INTO CONSOLE (console, developer, manufacturer) VALUES ('Playstation_4', 'Sony Computer Entertainment', 'Sony');
+INSERT INTO CONSOLE (console, developer, manufacturer) VALUES ('Xbox_One', 'Microsoft', 'Flextronics');
+
+INSERT INTO CONSOLE (console, developer, manufacturer) VALUES ('Playstation_4', 'Sony Computer Entertainment', 'Sony');
+INSERT INTO CONSOLE (console, developer, manufacturer) VALUES ('Xbox_One', 'Microsoft', 'Flextronics');

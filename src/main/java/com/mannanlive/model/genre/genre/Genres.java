@@ -1,4 +1,4 @@
-package com.mannanlive.model;
+package com.mannanlive.model.genre;
 
 import java.util.List;
 import java.util.stream.Collectors;

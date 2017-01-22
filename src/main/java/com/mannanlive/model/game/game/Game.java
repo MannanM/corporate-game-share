@@ -1,4 +1,4 @@
-package com.mannanlive.model;
+package com.mannanlive.model.game;
 
 public class Game {
     private GameData data = new GameData();

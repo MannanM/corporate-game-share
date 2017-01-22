@@ -1,4 +1,4 @@
-package com.mannanlive.model;
+package com.mannanlive.model.genre;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.swagger.annotations.ApiModelProperty;

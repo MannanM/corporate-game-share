@@ -1,11 +1,8 @@
 package com.mannanlive.translator;
 
 import com.mannanlive.entity.GameEntity;
-import com.mannanlive.model.Game;
+import com.mannanlive.model.game.Game;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class GameTranslator {

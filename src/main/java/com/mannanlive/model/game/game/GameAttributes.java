@@ -1,4 +1,4 @@
-package com.mannanlive.model;
+package com.mannanlive.model.game;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
