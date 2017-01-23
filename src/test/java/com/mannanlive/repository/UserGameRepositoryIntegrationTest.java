@@ -21,7 +21,7 @@ public class UserGameRepositoryIntegrationTest extends AbstractRepositoryIntegra
 
     @Test
     public void persistUserEntityGeneratesId() {
-        UserEntity user = entityManager.persist(new UserEntity("something@something.com", "Test", "hahah"));
+        UserEntity user = entityManager.persist(new UserEntity("something@something.com", "Test", "hahah", "something.com"));
         UserGameEntity secondGame = createAndPersistUserGame(user, "Test Game", LocalDateTime.now());
         UserGameEntity firstGame = createAndPersistUserGame(user, "Second Test Game",
                 LocalDateTime.of(2014, Month.DECEMBER, 12, 12, 12));

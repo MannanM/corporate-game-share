@@ -1,26 +1,30 @@
 package com.mannanlive.controller;
 
 import com.mannanlive.model.usermodel.User;
+import com.mannanlive.model.usermodel.Users;
 import com.mannanlive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(path = "/v1/organisations/{organisation}", produces = "application/vnd.api+json")
+@RequestMapping(path = "/v1/organisations", produces = "application/vnd.api+json")
 public class OrganisationController {
-    //todo: you should only be able to access this endpoint if you are authenticated and your organisation matches this
-
     @Autowired
     private UserService service;
 
-    @RequestMapping(path = "/users", method = RequestMethod.GET)
-    //todo: make this a JSON API compliant result
-    public List<User> register(@PathVariable String organisation) {
+    @RequestMapping(path = "/{organisation}/users", method = RequestMethod.GET)
+    public Users findUsersInOrganisation(Authentication user, @PathVariable String organisation) {
+        organisation = organisation.toLowerCase();
+        service.validate(user, organisation);
         return service.findUsersInOrganisation(organisation);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/me")
+    public User whoAmI(Authentication user) {
+        return (User) user.getPrincipal();
     }
 }

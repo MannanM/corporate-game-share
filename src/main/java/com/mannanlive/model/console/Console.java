@@ -8,7 +8,7 @@ public class Console {
     @ApiModelProperty(required = true, example = "1", readOnly = true, position = 1)
     private String id;
 
-    @ApiModelProperty(required = true, example = "consoles", readOnly = true, position = 2)
+    @ApiModelProperty(required = true, example = "consoles", readOnly = true)
     private String type = "consoles";
 
     @ApiModelProperty(required = true, readOnly = true, position = 2)

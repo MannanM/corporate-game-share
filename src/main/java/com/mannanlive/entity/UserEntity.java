@@ -1,6 +1,5 @@
 package com.mannanlive.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.CascadeType;
@@ -13,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,29 +31,26 @@ public class UserEntity {
     @NotEmpty
     private String password;
 
-    @JsonIgnore
+    @NotEmpty
+    private String organisation;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {
             @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id")
     })
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_console", joinColumns = {
+            @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "console_id")
+    })
     private Set<ConsoleEntity> consoles;
 
-    public UserEntity(String login, String name, String password) {
+    public UserEntity(String login, String name, String password, String organisation) {
         this.name = name;
         this.login = login;
         this.password = password;
-    }
-
-    public UserEntity(UserEntity user) {
-        super();
-        this.id = user.getId();
-        this.name = user.getName();
-        this.login = user.getLogin();
-        this.password = user.getPassword();
-        this.roles = user.getRoles();
+        this.organisation = organisation;
     }
 
     public Long getId() {
@@ -104,5 +99,13 @@ public class UserEntity {
 
     public void setConsoles(Set<ConsoleEntity> consoles) {
         this.consoles = consoles;
+    }
+
+    public String getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
     }
 }
