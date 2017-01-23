@@ -19,4 +19,11 @@ public class UserRepositoryIntegrationTest extends AbstractRepositoryIntegration
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void testGetEntity() {
+        UserEntity actual = repository.findOne(1L);
+
+        assertThat(actual.getLogin()).isEqualTo("tom@ex.com.au");
+    }
 }

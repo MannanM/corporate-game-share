@@ -46,6 +46,10 @@ public class UserEntity {
     })
     private Set<ConsoleEntity> consoles;
 
+    public UserEntity() {
+        //hibernate needs this
+    }
+
     public UserEntity(String login, String name, String password, String organisation) {
         this.name = name;
         this.login = login;
