@@ -3,9 +3,9 @@ package com.mannanlive.model.library;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mannanlive.entity.GameState;
 import com.mannanlive.model.ResourceSummary;
-import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class LibraryGameAttributes {
