@@ -14,6 +14,10 @@ public class ResourceSummary {
     @ApiModelProperty(required = true, readOnly = true, position = 2)
     private ResourceSummaryAttributes attributes = new ResourceSummaryAttributes();
 
+    public ResourceSummary() {
+        //for jackson
+    }
+
     public ResourceSummary(String type, String id, String name) {
         this.type = type;
         this.id = id;

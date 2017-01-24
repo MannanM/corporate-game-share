@@ -1,5 +1,6 @@
 package com.mannanlive.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -23,6 +24,12 @@ import static java.util.Collections.singletonList;
 public class SwaggerConfiguration {
     private static final String BASIC_AUTH = "Basic Auth";
 
+    @Value("#{environment['HEROKU_RELEASE_VERSION']}")
+    private String version;
+
+    @Value("#{environment['HEROKU_SLUG_COMMIT']}")
+    private String commit;
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -39,7 +46,7 @@ public class SwaggerConfiguration {
         return new ApiInfo(
                 "Corporate Game Share",
                 "App to register console games you own and share them with your co-workers.",
-                "v1",
+                String.format("%s-%s", version, commit),
                 "Terms of service",
                 new Contact("MannanM", "https://github.com/MannanM/corporate-game-share", "whatabout@gmail.com"),
                 "GPL-3.0",
@@ -49,7 +56,7 @@ public class SwaggerConfiguration {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(input -> input != null && input.contains("/organisations/"))
+                .forPaths(input -> input != null && (input.contains("/organisations/") || input.contains("/users")))
                 .build();
     }
 

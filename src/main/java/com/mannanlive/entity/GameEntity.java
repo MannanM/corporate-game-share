@@ -17,7 +17,7 @@ import java.util.List;
 public class GameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
 
     @ElementCollection
@@ -40,13 +40,17 @@ public class GameEntity {
         this.console = console;
     }
 
+    public GameEntity(long id) {
+        this.id = id;
+    }
+
     //todo: add wikipedia link, you can get this from the first column
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

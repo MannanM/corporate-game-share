@@ -3,8 +3,8 @@ package com.mannanlive.repository;
 import com.mannanlive.entity.ConsoleEntity;
 import com.mannanlive.entity.GameEntity;
 import com.mannanlive.entity.GameState;
+import com.mannanlive.entity.LibraryEntity;
 import com.mannanlive.entity.UserEntity;
-import com.mannanlive.entity.UserGameEntity;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,26 +14,26 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserGameRepositoryIntegrationTest extends AbstractRepositoryIntegrationTest {
+public class LibraryRepositoryIntegrationTest extends AbstractRepositoryIntegrationTest {
 
     @Autowired
-    private UserGameRepository repository;
+    private LibraryRepository repository;
 
     @Test
     public void persistUserEntityGeneratesId() {
         UserEntity user = entityManager.persist(new UserEntity("something@something.com", "Test", "hahah", "something.com"));
-        UserGameEntity secondGame = createAndPersistUserGame(user, "Test Game", LocalDateTime.now());
-        UserGameEntity firstGame = createAndPersistUserGame(user, "Second Test Game",
+        LibraryEntity secondGame = createAndPersistUserGame(user, "Test Game", LocalDateTime.now());
+        LibraryEntity firstGame = createAndPersistUserGame(user, "Second Test Game",
                 LocalDateTime.of(2014, Month.DECEMBER, 12, 12, 12));
 
-        List<UserGameEntity> games = repository.findByUserIdOrderByDateAdded(user.getId());
+        List<LibraryEntity> games = repository.findByUserIdOrderByAdded(user.getId());
 
         assertThat(games.size()).isEqualTo(2);
         assertThat(games.get(0)).isEqualTo(firstGame);
         assertThat(games.get(1)).isEqualTo(secondGame);
     }
 
-    private UserGameEntity createAndPersistUserGame(UserEntity user, String gameName, LocalDateTime date) {
+    private LibraryEntity createAndPersistUserGame(UserEntity user, String gameName, LocalDateTime date) {
         return entityManager.persist(createUserGame(createGame(gameName), user, date));
     }
 
@@ -41,11 +41,11 @@ public class UserGameRepositoryIntegrationTest extends AbstractRepositoryIntegra
         return entityManager.persist(new GameEntity(gameName, new ConsoleEntity(1L)));
     }
 
-    private UserGameEntity createUserGame(GameEntity game, UserEntity user, LocalDateTime now) {
-        UserGameEntity entity = new UserGameEntity();
+    private LibraryEntity createUserGame(GameEntity game, UserEntity user, LocalDateTime now) {
+        LibraryEntity entity = new LibraryEntity();
         entity.setGame(game);
         entity.setUser(user);
-        entity.setDateAdded(now);
+        entity.setAdded(now);
         entity.setState(GameState.AVAILABLE);
         return entity;
     }

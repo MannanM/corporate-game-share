@@ -57,6 +57,10 @@ public class UserEntity {
         this.organisation = organisation;
     }
 
+    public UserEntity(long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

@@ -2,9 +2,9 @@ package com.mannanlive.util;
 
 import com.mannanlive.entity.ConsoleEntity;
 import com.mannanlive.entity.GameEntity;
+import com.mannanlive.entity.LibraryEntity;
 import com.mannanlive.entity.RoleEntity;
 import com.mannanlive.entity.UserEntity;
-import com.mannanlive.entity.UserGameEntity;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.boot.spi.MetadataImplementor;
@@ -22,7 +22,7 @@ public class SchemaTranslator {
         metadata.addAnnotatedClass(GameEntity.class);
         metadata.addAnnotatedClass(UserEntity.class);
         metadata.addAnnotatedClass(RoleEntity.class);
-        metadata.addAnnotatedClass(UserGameEntity.class);
+        metadata.addAnnotatedClass(LibraryEntity.class);
 
         SchemaExport export = new SchemaExport((MetadataImplementor) metadata.buildMetadata());
         export.create(Target.SCRIPT);

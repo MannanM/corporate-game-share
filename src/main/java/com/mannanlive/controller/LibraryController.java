@@ -1,0 +1,46 @@
+package com.mannanlive.controller;
+
+import com.mannanlive.model.library.Library;
+import com.mannanlive.model.library.LibraryGameData;
+import com.mannanlive.service.LibraryService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(path = "/v1/users", produces = "application/vnd.api+json")
+public class LibraryController {
+
+    @Autowired
+    private LibraryService service;
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{userId}/games")
+    @ApiOperation(value = "View a user's library", notes = "User must be in the same organisation as you.")
+    public Library getUsersLibrary(Authentication user, @PathVariable Long userId) {
+        return service.getUsersLibrary(user, userId);
+    }
+
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @RequestMapping(method = RequestMethod.POST, value = "/{userId}/games")
+    @ApiOperation(value = "Add a game to your library",
+                  notes = "Example Minimum Payload: {\"attributes\":{\"game\":{\"id\":\"123\"}}}")
+    public void addGameToLibrary(Authentication user, @PathVariable Long userId, @RequestBody LibraryGameData data) {
+        service.addGameToLibrary(user, userId, data);
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/{userId}/games/{libraryId}")
+    @ApiOperation(value = "Update a game in your library",
+                  notes = "Example Minimum Payload: {\"attributes\":{\"state\":\"SOLD\"}}")
+    public void updateGameInLibrary(Authentication user, @PathVariable Long userId, @PathVariable Long libraryId,
+                                      @RequestBody LibraryGameData data) {
+        service.updateGameInLibrary(user, libraryId, data);
+    }
+
+}

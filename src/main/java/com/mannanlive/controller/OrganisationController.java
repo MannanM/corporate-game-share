@@ -1,6 +1,5 @@
 package com.mannanlive.controller;
 
-import com.mannanlive.model.usermodel.User;
 import com.mannanlive.model.usermodel.Users;
 import com.mannanlive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +20,5 @@ public class OrganisationController {
         organisation = organisation.toLowerCase();
         service.validate(user, organisation);
         return service.findUsersInOrganisation(organisation);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/me")
-    public User whoAmI(Authentication user) {
-        return (User) user.getPrincipal();
     }
 }
