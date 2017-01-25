@@ -1,5 +1,6 @@
 package com.mannanlive.util;
 
+import com.mannanlive.entity.BorrowEntity;
 import com.mannanlive.entity.ConsoleEntity;
 import com.mannanlive.entity.GameEntity;
 import com.mannanlive.entity.LibraryEntity;
@@ -23,6 +24,7 @@ public class SchemaTranslator {
         metadata.addAnnotatedClass(UserEntity.class);
         metadata.addAnnotatedClass(RoleEntity.class);
         metadata.addAnnotatedClass(LibraryEntity.class);
+        metadata.addAnnotatedClass(BorrowEntity.class);
 
         SchemaExport export = new SchemaExport((MetadataImplementor) metadata.buildMetadata());
         export.create(Target.SCRIPT);

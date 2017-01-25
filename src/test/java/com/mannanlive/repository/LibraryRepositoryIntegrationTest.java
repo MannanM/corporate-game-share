@@ -26,7 +26,7 @@ public class LibraryRepositoryIntegrationTest extends AbstractRepositoryIntegrat
         LibraryEntity firstGame = createAndPersistUserGame(user, "Second Test Game",
                 LocalDateTime.of(2014, Month.DECEMBER, 12, 12, 12));
 
-        List<LibraryEntity> games = repository.findByUserIdOrderByAdded(user.getId());
+        List<LibraryEntity> games = repository.findByUserIdOrderByCreated(user.getId());
 
         assertThat(games.size()).isEqualTo(2);
         assertThat(games.get(0)).isEqualTo(firstGame);
@@ -45,7 +45,7 @@ public class LibraryRepositoryIntegrationTest extends AbstractRepositoryIntegrat
         LibraryEntity entity = new LibraryEntity();
         entity.setGame(game);
         entity.setUser(user);
-        entity.setAdded(now);
+        entity.setCreated(now);
         entity.setState(GameState.AVAILABLE);
         return entity;
     }

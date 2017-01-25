@@ -33,7 +33,7 @@ public class LibraryEntity {
     public GameState state;
 
     @Column(nullable = false)
-    public LocalDateTime added;
+    public LocalDateTime created;
     public LocalDateTime removed;
 
     public Long getId() {
@@ -60,12 +60,12 @@ public class LibraryEntity {
         this.game = game;
     }
 
-    public LocalDateTime getAdded() {
-        return added;
+    public LocalDateTime getCreated() {
+        return created;
     }
 
-    public void setAdded(LocalDateTime added) {
-        this.added = added;
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 
     public GameState getState() {

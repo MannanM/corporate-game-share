@@ -17,7 +17,7 @@ public class LibraryGameAttributes {
 
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
     @ApiModelProperty(readOnly = true, example = "2014-09-13T19:00:00Z", position = 3)
-    private LocalDateTime added;
+    private LocalDateTime created;
 
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
     @ApiModelProperty(readOnly = true, example = "2014-09-13T19:00:00Z", position = 4)
@@ -55,12 +55,12 @@ public class LibraryGameAttributes {
         this.state = state;
     }
 
-    public LocalDateTime getAdded() {
-        return added;
+    public LocalDateTime getCreated() {
+        return created;
     }
 
-    public void setAdded(LocalDateTime added) {
-        this.added = added;
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 
     public LocalDateTime getRemoved() {

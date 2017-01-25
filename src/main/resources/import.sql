@@ -19,4 +19,5 @@ insert into user_console (user_id, console_id) values (3, 2);
 insert into game (name, developer, publisher, exclusive, console_id) values ('Destiny', 'Bungie', 'Activision', false, 1);
 insert into game_genres (game_id, genres) values (1, 'action rpg');
 insert into game_genres (game_id, genres) values (1, 'first person shooter');
-insert into library (game_id, user_id, state, added) values (1, 1, 'AVAILABLE', CURRENT_TIMESTAMP);
+insert into library (game_id, user_id, state, created) values (1, 1, 'AVAILABLE', CURRENT_TIMESTAMP);
+insert into borrow (requester_id, library_id, state, start, end, created) values (2, 1, 'PENDING', '2017-01-03', '2017-01-28', CURRENT_TIMESTAMP);
