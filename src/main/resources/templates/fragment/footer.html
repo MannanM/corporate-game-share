@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head/>
+    <body>
+        <div id="footerView" class="container" th:fragment="footer">
+            <div class="text-center" th:text="${name} + ' &copy; 2017'">&copy; 2017</div>
+        </div>
+        <script th:fragment="scripts" type="text/javascript" src="js/libs/jquery-3.1.1.min.js"/>
+        <script th:fragment="scripts" type="text/javascript" src="js/libs/bootstrap.min.js"/>
+        <script th:fragment="scripts" type="text/javascript" src="js/libs/angular.min.js"/>
+        <script th:fragment="scripts" type="text/javascript" src="js/libs/angular-route.min.js"/>
+        <script th:fragment="scripts" type="text/javascript" src="js/app/app.js"/>
+        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/applicationController.js"/>
+        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/gamesController.js"/>
+        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/optionsController.js"/>
+    </body>
+</html>

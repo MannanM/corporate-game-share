@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${name}"></title>
+        <link rel="stylesheet" href="css/app.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+            function bootstrapApp(app) {
+                console.log('boot strapping app...');
+                app.constant('appConfig', {
+                   apiUrl: [[${apiUrl}]]
+                });
+            }
+        /*]]>*/
+        </script>
+    </head>
+    <body>
+        <div th:replace="fragment/header :: header"/>
+
+        <div class="container">
+
+            <div id="appView" ng-app="app" ng-controller="ApplicationController as ac" ng-init="ac.init()">
+                <p class="text-center"><b>Talking to API:</b> {{ ac.url }}</p>
+
+                <div class="text-center">
+                    <p><a href="#!/games">Games</a> | <a href="#!/options">Options</a></p>
+                    <ng-view></ng-view>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div th:replace="fragment/footer :: footer"/>
+        <div th:replace="fragment/footer :: scripts"/>
+
+    </body>
+</html>
