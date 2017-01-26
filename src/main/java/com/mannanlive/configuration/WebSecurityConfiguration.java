@@ -30,7 +30,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and().authorizeRequests()
-            .antMatchers("/*.html", "/", "/swagger-resources/**", "/v2/api-docs", "'/webjars/**",
+            .antMatchers("/*.html", "/**/*.html", "/", "/swagger-resources/**", "/v2/api-docs", "'/webjars/**",
                         "/v1/games/**", "/v1/consoles", "/v1/register", "/v1/forgot-password").permitAll()
             .anyRequest().authenticated()
             .and()

@@ -1,2 +1,32 @@
-<h1>Games</h1>
-<button ng-click="gc.onClickMe()">Click Me</button>
+
+
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">My Consoles</div>
+</md-toolbar>
+
+<md-content>
+    <section>
+        <md-subheader class="md-primary">Consoles You Own</md-subheader>
+        <md-grid-list
+                md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+                md-row-height-gt-md="1:1" md-row-height="2:2"
+                md-gutter="12px" md-gutter-gt-sm="8px" >
+
+            <md-grid-tile ng-repeat="tile in gc.consoles"
+                          md-rowspan="1"
+                          md-colspan="1"
+                          md-colspan-sm="1"
+                          md-colspan-xs="1"
+                          ng-click="gc.alert(tile.id)"
+                          ng-class="tile.background">
+                <!--<md-icon ng-style="{'font-size': tile.size + 'px', height: tile.size + 'px'}"-->
+                        <!--md-svg-src="img/icons/console-{{tile.id}}.svg"></md-icon>-->
+                <img src="img/icons/console-{{tile.id}}.svg" />
+                <md-grid-tile-footer><h3>{{tile.attributes.name}}</h3></md-grid-tile-footer>
+            </md-grid-tile>
+        </md-grid-list>
+    </section>
+    <section>
+        <md-subheader class="md-accent">Available Consoles</md-subheader>
+    </section>
+</md-content>

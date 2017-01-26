@@ -1,3 +1,4 @@
+apiUrl: http://localhost:#{'${server.port:8080}'}/api
 spring:
   jpa:
     show-sql: false
