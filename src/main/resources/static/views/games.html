@@ -1,6 +1,6 @@
 
 
-<md-toolbar md-scroll-shrink>
+<md-toolbar class="md-hue-1" md-scroll-shrink>
     <div class="md-toolbar-tools">My Consoles</div>
 </md-toolbar>
 
@@ -19,8 +19,6 @@
                           md-colspan-xs="1"
                           ng-click="gc.alert(tile.id)"
                           ng-class="tile.background">
-                <!--<md-icon ng-style="{'font-size': tile.size + 'px', height: tile.size + 'px'}"-->
-                        <!--md-svg-src="img/icons/console-{{tile.id}}.svg"></md-icon>-->
                 <img src="img/icons/console-{{tile.id}}.svg" />
                 <md-grid-tile-footer><h3>{{tile.attributes.name}}</h3></md-grid-tile-footer>
             </md-grid-tile>

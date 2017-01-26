@@ -31,6 +31,11 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .otherwise({ redirectTo: '/games'});
 }]);
+app.config(function($mdThemingProvider) {
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('blue-grey');
+    });
 
 app.run(['$rootScope', '$location', '$cookieStore', '$http',
    function ($rootScope, $location, $cookieStore, $http) {
