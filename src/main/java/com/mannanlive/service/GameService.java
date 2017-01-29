@@ -30,11 +30,15 @@ public class GameService {
     @Autowired
     private ConsoleTranslator consoleTranslator;
 
+    @Autowired
+    private GameImageService gameImageService;
+
     public Game findById(long gameId) {
         GameEntity result = gameRepository.findOne(gameId);
         if (result == null) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
+        gameImageService.refreshGameImage(result);
         return gameTranslator.translate(result);
     }
 

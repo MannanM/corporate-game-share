@@ -1,6 +1,7 @@
 package com.mannanlive.translator;
 
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -41,6 +42,15 @@ public class WikiElementTranslator {
             }
         }
         return result;
+    }
+
+    public String extractLink(Element td) {
+        Elements href = td.select("a");
+        if (!href.isEmpty()) {
+            //<i><a href="/wiki/1001_Spikes" title="1001 Spikes">1001 Spikes</a></i>
+            return href.attr("href");
+        }
+        return null;
     }
 
     //removes about 35 (15%) of the duplicate values

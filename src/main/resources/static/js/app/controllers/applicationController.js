@@ -10,28 +10,24 @@ angular.module('app')
     vm.url = appConfig.apiUrl;
     vm.currentNavItem = 'games'
     vm.user = {};
-    vm.loggedIn = function() {
-        return user.id;
-    };
+    vm.loggedIn = false;
 
     $scope.$on('login', function() {
+        console.log("login event triggered");
         vm.user = $rootScope.globals.currentUser.data;
+        vm.loggedIn = true;
     });
     $scope.$on('logout', function() {
         vm.user = {};
+        vm.loggedIn = false;
     });
 
     vm.init = function() {
         console.log('loading app...' + appConfig.apiUrl);
         if ($rootScope.globals.currentUser) {
             vm.user = $rootScope.globals.currentUser.data;
+            vm.loggedIn = true;
         }
-
-      $rootScope.$on('$routeChangeSuccess', function(event, current) {
-        var path = current.$$route.originalPath;
-        //remove forward slash
-        vm.currentNavItem = path.substr(1);
-      });
     };
 
 }]);

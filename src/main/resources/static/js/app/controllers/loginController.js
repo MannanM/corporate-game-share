@@ -1,22 +1,26 @@
 angular.module('app')
 
 .controller('LoginController',
-    ['$scope', '$rootScope', '$location', 'AuthenticationService',
-    function ($scope, $rootScope, $location, AuthenticationService) {
+    ['$scope', '$location', 'AuthenticationService',
+    function ($scope, $location, AuthenticationService) {
         // reset login status
         AuthenticationService.ClearCredentials();
         $scope.$emit('logout');
+        var vm = this;
+        vm.login       = login;
+        vm.error       = '';
+        vm.dataLoading = false;
 
-        $scope.login = function () {
-            $scope.dataLoading = true;
+        function login() {
+            vm.dataLoading = true;
             AuthenticationService.Login($scope.username, $scope.password,
                 function () {
                     $location.path('/games');
                     $scope.$emit('login');
                 },
                 function(response) {
-                    $scope.error = 'Sorry, your Username and Password combination does not match.';
-                    $scope.dataLoading = false;
+                    vm.error = 'Sorry, your Username and Password combination do not match.';
+                    vm.dataLoading = false;
                  }
             )
         };

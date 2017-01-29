@@ -16,8 +16,12 @@ app.config(['$routeProvider', function($routeProvider) {
         when('/login', {
             templateUrl: '/views/login.html',
             controller: 'LoginController',
-            controllerAs: 'lo',
-            hideMenus: true
+            controllerAs: 'lo'
+        }).
+        when('/register', {
+            templateUrl: '/views/register.html',
+            controller: 'RegisterController',
+            controllerAs: 'ro'
         }).
         when('/games', {
             templateUrl: '/views/games.html',
@@ -47,8 +51,10 @@ app.run(['$rootScope', '$location', '$cookieStore', '$http',
 
        $rootScope.$on('$locationChangeStart', function (event, next, current) {
            // redirect to login page if not logged in
-           if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
-               $location.path('/login');
+           if (!$rootScope.globals.currentUser) {
+                if (!($location.path() == '/login' || $location.path() == '/register')) {
+                    $location.path('/login');
+               }
            }
        });
 }]);

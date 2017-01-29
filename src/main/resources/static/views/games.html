@@ -9,12 +9,12 @@
         <md-subheader class="md-primary">Consoles You Own</md-subheader>
         <md-grid-list
                 md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
-                md-row-height-gt-md="1:1" md-row-height="2:2"
+                md-row-height-gt-md="1:1" md-row-height="4:3"
                 md-gutter="12px" md-gutter-gt-sm="8px" >
 
             <md-grid-tile ng-repeat="tile in gc.consoles"
-                          md-rowspan="1"
-                          md-colspan="1"
+                          md-rowspan="2"
+                          md-colspan="2"
                           md-colspan-sm="1"
                           md-colspan-xs="1"
                           ng-click="gc.alert(tile.id)"

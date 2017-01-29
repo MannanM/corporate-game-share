@@ -54,6 +54,23 @@ public class WikiElementTranslatorTest {
         assertNull(translator.extractDate(td));
     }
 
+    @Test
+    public void testGetAttributesWorksAsExpected() throws Exception {
+        Element italics = new Element("i");
+        Element href = new Element("a");
+        href.attr("href", "/wiki/1001_Spikes");
+        italics.appendChild(href);
+
+        td.appendChild(italics);
+        assertThat(translator.extractLink(td)).isEqualTo("/wiki/1001_Spikes");
+    }
+
+    @Test
+    public void testGetAttributesReturnsNullForGamesWithNoLink() throws Exception {
+        td.appendChild(new Element("i"));
+        assertNull(translator.extractLink(td));
+    }
+
     private Element createSpanWithText(String text) {
         Element span = new Element("span");
         span.text(text);

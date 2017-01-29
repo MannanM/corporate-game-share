@@ -30,6 +30,7 @@ public class GameAttributes {
 
     @ApiModelProperty(readOnly = true, position = 6)
     private List<String> genres;
+    private String image;
 
     public String getName() {
         return name;
@@ -85,5 +86,13 @@ public class GameAttributes {
 
     public void setConsole(String console) {
         this.console = console;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

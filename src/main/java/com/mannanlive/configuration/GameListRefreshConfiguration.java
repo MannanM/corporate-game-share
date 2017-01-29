@@ -43,7 +43,7 @@ public class GameListRefreshConfiguration {
     private void refreshGamesForPlatform(final ConsoleEntity console) {
         try {
             Document document = Jsoup.connect(format(WIKI_PAGE, console.getWikiName())).get();
-            Elements tableRows = document.select("#" + WIKI_TABLE_NAME + " tr");
+            Elements tableRows = document.select(String.format("#%s tr", WIKI_TABLE_NAME));
             for (Element row : tableRows) {
                 processRow(console, row);
             }
@@ -56,6 +56,7 @@ public class GameListRefreshConfiguration {
         GameEntity entity = gameRepository.findByNameAndConsole(game.getName(), game.getConsole());
         if (entity != null) {
             game.setId(entity.getId());
+            game.setImageLink(entity.getImageLink());
         }
         gameRepository.save(game);
     }
@@ -74,6 +75,7 @@ public class GameListRefreshConfiguration {
         Element[] tds = cells.toArray(new Element[10]);
         GameEntity game = new GameEntity();
         game.setName(tds[0].text());
+        game.setWikiLink(translator.extractLink(tds[0]));
         game.setGenres(translator.extractList(tds[1]));
         game.setDeveloper(tds[2].text());
         game.setPublisher(tds[3].text());

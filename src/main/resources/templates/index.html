@@ -24,10 +24,10 @@
         <div class="container">
 
             <div id="appView" ng-app="app" ng-controller="ApplicationController as ac" ng-init="ac.init()">
-                <!--<p ngHide="ac.loggedIn">Hi, {{ac.user.attributes.name}}</p>-->
-                <md-nav-bar md-selected-nav-item="ac.currentNavItem">
+                <md-nav-bar ng-show="ac.loggedIn" md-selected-nav-item="ac.currentNavItem">
                     <md-nav-item md-nav-href="#/games" name="games" value="games">Games</md-nav-item>
                     <md-nav-item md-nav-href="#/options" name="options" value="options">Options</md-nav-item>
+                    <md-nav-item md-nav-href="#/login" name="options" value="options">Logout</md-nav-item>
                 </md-nav-bar>
                 <div class="text-center">
                     <ng-view></ng-view>

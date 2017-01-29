@@ -1,0 +1,62 @@
+<div class="alert alert-info">
+    Make sure to register with your work email (e.g. tom@ex.com.au) so that you are added to the right group!
+</div>
+<div ng-show="error" class="alert alert-danger">{{error}}</div>
+<div layout="column" layout-align="center center" layout-fill="layout-fill">
+    <div class="loginBox md-whiteframe-z1" layout="column">
+        <md-toolbar>
+            <h2 class="md-toolbar-tools"><span>Register</span></h2>
+        </md-toolbar>
+        <md-content class="md-padding" layout="column">
+            <md-input-container>
+                <label>Name</label>
+                <input type="input" ng-model="Name"/>
+            </md-input-container>
+            <md-input-container>
+                <label>Email Address</label>
+                <input type="email" ng-model="username"/>
+            </md-input-container>
+            <md-input-container>
+                <label>Password</label>
+                <input type="password" ng-model="password"/>
+            </md-input-container>
+
+            <md-input-container>
+                <label>Consoles You Own</label>
+            <md-chips ng-model="ro.selectedConsoles" md-require-match="true">
+                <md-autocomplete
+                        md-selected-item="ro.selectedItem"
+                        md-search-text="ro.searchText"
+                        md-items="item in ro.querySearch(ro.searchText)"
+                        md-item-text="item.display"
+                        md-min-length="0"
+                        placeholder="Available Consoles">
+                    <md-item-template>
+                        <span md-highlight-text="ro.searchText">{{item.display}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No consoles match "{{ro.searchText}}"
+                    </md-not-found>
+                </md-autocomplete>
+                <md-chip-template>
+                    <span>
+                      <strong>{{$chip.display}}</strong>
+                      <!--<em>({{$chip.type}})</em>-->
+                    </span>
+                </md-chip-template>
+            </md-chips>
+            </md-input-container>
+
+            <div layout="row" layout-align="center center" style="padding-top:20px">
+                <md-button ng-click="ro.register()" class="md-raised md-primary"
+                           ng-disabled="form.$invalid || ro.dataLoading">
+                    <img ng-if="ro.dataLoading"
+                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                    Register
+                </md-button>
+                <div flex="flex"></div>
+                <md-button href="#/login" md-no-ink="md-no-ink">Login</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>

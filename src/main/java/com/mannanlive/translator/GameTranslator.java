@@ -16,6 +16,7 @@ public class GameTranslator {
         json.getData().getAttributes().setPublisher(entity.getPublisher());
         json.getData().getAttributes().setReleaseDate(entity.getReleaseDate());
         json.getData().getAttributes().setGenres(entity.getGenres());
+        json.getData().getAttributes().setImage(entity.getImageLink());
         return json;
     }
 }
