@@ -9,20 +9,23 @@ import com.mannanlive.entity.UserEntity;
 import com.mannanlive.model.ResourceSummary;
 import com.mannanlive.model.borrow.BorrowData;
 import com.mannanlive.model.library.LibraryGameData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
 public class LibraryTranslator {
+    @Autowired
+    private GameTranslator gameTranslator;
+
     public LibraryGameData translate(LibraryEntity entity) {
         LibraryGameData data = new LibraryGameData();
         data.setId(entity.getId().toString());
         data.getAttributes().setCreated(entity.getCreated());
         data.getAttributes().setRemoved(entity.getRemoved());
         data.getAttributes().setState(entity.getState());
-        data.getAttributes().setGame(new ResourceSummary("games", entity.getGame().getId().toString(),
-                entity.getGame().getName()));
+        data.getAttributes().setGame(gameTranslator.translate(entity.getGame()).getData());
         data.getAttributes().setOwner(new ResourceSummary("users", entity.getUser().getId().toString(),
                 entity.getUser().getName()));
         if (entity.getBorrower() != null) {

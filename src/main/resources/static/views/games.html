@@ -1,10 +1,42 @@
-
-
-<md-toolbar class="md-hue-1" md-scroll-shrink>
-    <div class="md-toolbar-tools">My Consoles</div>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>My Library</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-raised" aria-label="Add Game">
+            Add Game
+        </md-button>
+    </div>
 </md-toolbar>
-
 <md-content>
+    <section>
+        <md-subheader class="md-primary">Games You Own</md-subheader>
+        <div layout="row" ng-repeat="rows in gc.games">
+            <div flex="33" ng-repeat="game in rows">
+                <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{game.attributes.game.attributes.name}}</span>
+                            <span class="md-subhead">{{game.attributes.game.attributes.developer}} -
+                                {{game.attributes.game.attributes.console}}</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <img ng-src="{{game.attributes.game.attributes.image}}" class="md-media-100"/>
+                        </md-card-title-media>
+                    </md-card-title>
+
+                    <md-card-content>
+                        <p class="text-left">Added to collection on {{game.attributes.created | date: 'mediumDate'}}
+                            & currently {{game.attributes.state | lowercase}}.</p>
+                    </md-card-content><md-card-actions layout="row" layout-align="end center">
+                        <md-button>Playing</md-button>
+                        <md-button>Sold</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+    </section>
     <section>
         <md-subheader class="md-primary">Consoles You Own</md-subheader>
         <md-grid-list
@@ -13,18 +45,11 @@
                 md-gutter="12px" md-gutter-gt-sm="8px" >
 
             <md-grid-tile ng-repeat="tile in gc.consoles"
-                          md-rowspan="2"
-                          md-colspan="2"
-                          md-colspan-sm="1"
-                          md-colspan-xs="1"
                           ng-click="gc.alert(tile.id)"
                           ng-class="tile.background">
-                <img src="img/icons/console-{{tile.id}}.svg" />
+                <img ng-src="img/icons/console-{{tile.id}}.svg" />
                 <md-grid-tile-footer><h3>{{tile.attributes.name}}</h3></md-grid-tile-footer>
             </md-grid-tile>
         </md-grid-list>
-    </section>
-    <section>
-        <md-subheader class="md-accent">Available Consoles</md-subheader>
     </section>
 </md-content>

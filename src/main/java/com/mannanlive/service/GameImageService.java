@@ -22,7 +22,8 @@ public class GameImageService {
     private GameRepository repository;
 
     @Async
-    public void refreshGameImage(GameEntity gameEntity) {
+    public void refreshGameImage(Long gameId) {
+        GameEntity gameEntity = repository.findOne(gameId);
         if (gameEntity.getImageLink() == null && gameEntity.getWikiLink() != null) {
             if (tryAndRetrieveImage(gameEntity)) {
                 repository.save(gameEntity);

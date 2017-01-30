@@ -23,3 +23,7 @@ md-grid-list .red { background: #ff8a80; }
   max-width:  90%;
   width: 500px
 }
+
+.md-media-100 {
+  max-height: 100px;
+}

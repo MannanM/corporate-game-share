@@ -4,6 +4,7 @@ import com.mannanlive.entity.GameState;
 import com.mannanlive.entity.LibraryEntity;
 import com.mannanlive.model.library.Library;
 import com.mannanlive.model.library.LibraryGameData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 public class LibraryService extends AbstractGameService {
+    @Autowired
+    private GameImageService gameImageService;
+
     public Library getUsersLibrary(Authentication user, Long userId) {
         validateUserHasAccess(user, userId);
 
@@ -37,6 +41,7 @@ public class LibraryService extends AbstractGameService {
         LibraryEntity libraryEntity = translator.translateNew(userId, data);
         try {
             libraryRepository.save(libraryEntity);
+            gameImageService.refreshGameImage(libraryEntity.getGame().getId());
         } catch (DataIntegrityViolationException exception) {
             throw new HttpClientErrorException(BAD_REQUEST,
                     "You have already created this game to your library.");

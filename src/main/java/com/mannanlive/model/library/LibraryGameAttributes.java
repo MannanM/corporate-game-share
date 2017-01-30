@@ -3,13 +3,14 @@ package com.mannanlive.model.library;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mannanlive.entity.GameState;
 import com.mannanlive.model.ResourceSummary;
+import com.mannanlive.model.game.GameData;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class LibraryGameAttributes {
-    private ResourceSummary game;
+    private GameData game;
     private ResourceSummary owner;
     private ResourceSummary borrower;
     @NotNull
@@ -23,11 +24,11 @@ public class LibraryGameAttributes {
     @ApiModelProperty(readOnly = true, example = "2014-09-13T19:00:00Z", position = 4)
     private LocalDateTime removed;
 
-    public ResourceSummary getGame() {
+    public GameData getGame() {
         return game;
     }
 
-    public void setGame(ResourceSummary game) {
+    public void setGame(GameData game) {
         this.game = game;
     }
 
