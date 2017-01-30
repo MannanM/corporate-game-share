@@ -1,0 +1,49 @@
+<md-dialog aria-label="Autocomplete Dialog Example">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add a game to your library</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="ctrl.cancel()">
+                <!--<md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>-->
+                X
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content ng-cloak>
+        <div class="md-dialog-content autocomplete-game-search">
+            <form ng-submit="$event.preventDefault()">
+                <div ng-show="ctrl.error" class="alert alert-danger">{{ctrl.error}}</div>
+                <p>Type the name of the game you own in the box below.</p>
+                <md-autocomplete
+                        md-selected-item="ctrl.selectedItem"
+                        md-search-text="ctrl.searchText"
+                        md-items="item in ctrl.querySearch(ctrl.searchText)"
+                        md-item-text="item.data.attributes.name"
+                        md-min-length="1"
+                        placeholder="Name of the game..."
+                        md-menu-class="autocomplete-game"
+                        md-autofocus>
+                    <md-item-template>
+                        <!--<md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>-->
+                        <strong>{{item.data.attributes.name}}</strong>
+                        <span class="item-metadata">
+                          {{item.data.attributes.developer}} -
+                          {{item.data.attributes.publisher}}
+                        </span>
+                    </md-item-template>
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No games matching "{{ctrl.searchText}}" were found.
+                    </md-not-found>
+                </md-autocomplete>
+            </form>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-raised" aria-label="Add" ng-click="ctrl.finish($event)">Add</md-button>
+    </md-dialog-actions>
+</md-dialog>

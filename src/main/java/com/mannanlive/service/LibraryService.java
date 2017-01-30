@@ -44,7 +44,7 @@ public class LibraryService extends AbstractGameService {
             gameImageService.refreshGameImage(libraryEntity.getGame().getId());
         } catch (DataIntegrityViolationException exception) {
             throw new HttpClientErrorException(BAD_REQUEST,
-                    "You have already created this game to your library.");
+                    "You have already added this game to your library.");
         }
     }
 

@@ -3,12 +3,13 @@
 //
 
 angular.module('app')
-    .controller('GamesController', ['GameService', '$rootScope', '$scope', '$http',
-        function(GameService, $rootScope, $scope, $http) {
+    .controller('GamesController', ['GameService', '$rootScope', '$scope', '$http', '$mdDialog',
+        function(GameService, $rootScope, $scope, $http, $mdDialog) {
 
-    var vm = this;
+    var vm      = this;
     vm.consoles = [];
-    vm.games = [];
+    vm.games    = [];
+    vm.addGame  = addGame;
     vm.alert = function(data) {
         alert(data);
     }
@@ -20,12 +21,60 @@ angular.module('app')
             vm.consoles[i].background = "green";
         }
         console.log(vm.consoles);
-        //Load Games for user
+        loadGames();
+    };
+
+    function loadGames() {
         GameService.GetGames(function(data) {
             reverse(data);
-            vm.games = chunk(data, 3);
+            calculateColumns(4);
+            if (data.length <= 6) {
+                calculateColumns(6/3);
+            } else if (data.length <= 9) {
+                calculateColumns(9/3);
+            }
+            vm.games = chunk(data, vm.columns);
         }, logError);
-    };
+    }
+
+    function calculateColumns(number) {
+        vm.columns = number;
+        vm.size = Math.floor(100 / vm.columns);
+    }
+
+    function addGame($event) {
+        $mdDialog.show({
+            controller: DialogCtrl,
+            controllerAs: 'ctrl',
+            templateUrl: '/views/dialogs/add-game.html',
+            parent: angular.element(document.body),
+            targetEvent: $event,
+            clickOutsideToClose: true
+        }).then(loadGames);
+    }
+
+    function DialogCtrl(GameService, $timeout, $q, $scope, $mdDialog) {
+        var self = this;
+        self.querySearch = function(query) {
+            return GameService.Search(query);
+        };
+        self.cancel = function($event) {
+          $mdDialog.cancel();
+        };
+        self.finish = function($event) {
+            if (!self.selectedItem) {
+                return self.cancel();
+            }
+            GameService.Add(self.selectedItem,
+                function (success) {
+                    $mdDialog.hide();
+                }, function(error) {
+                    self.error = error.data.message;
+                    self.selectedItem = null;
+                }
+            );
+        };
+    }
 
     //move common functions somewhere else
     function logError(data) {
