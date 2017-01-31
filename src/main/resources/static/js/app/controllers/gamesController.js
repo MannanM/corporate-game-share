@@ -1,16 +1,14 @@
-//
-// Angular JS CorpGameShare Application
-//
+angular.module('app').controller('GamesController', ['GameService', '$rootScope', '$scope', '$http', '$mdDialog',
+   function(GameService, $rootScope, $scope, $http, $mdDialog) {
 
-angular.module('app')
-    .controller('GamesController', ['GameService', '$rootScope', '$scope', '$http', '$mdDialog',
-        function(GameService, $rootScope, $scope, $http, $mdDialog) {
-
-    var vm      = this;
-    vm.consoles = [];
-    vm.games    = [];
-    vm.addGame  = addGame;
-    vm.alert = function(data) {
+    var vm        = this;
+    vm.consoles   = [];
+    vm.games      = [];
+    vm.noGames    = false;
+    vm.addGame    = addGame;
+    vm.updateGame = updateGame;
+    vm.getTheme   = getTheme;
+    vm.alert      = function(data) {
         alert(data);
     }
 
@@ -26,15 +24,37 @@ angular.module('app')
 
     function loadGames() {
         GameService.GetGames(function(data) {
-            reverse(data);
-            calculateColumns(4);
-            if (data.length <= 6) {
-                calculateColumns(6/3);
-            } else if (data.length <= 9) {
-                calculateColumns(9/3);
+            var gameCount = data.length;
+            if (gameCount == 0) {
+                vm.noGames = true;
+            } else {
+                vm.noGames = false;
+                calculateColumns(4);
+                if (data.length <= 6) {
+                    calculateColumns(6/3);
+                } else if (data.length <= 9) {
+                    calculateColumns(9/3);
+                }
+                reverse(data);
+                vm.games = chunk(data, vm.columns);
             }
-            vm.games = chunk(data, vm.columns);
         }, logError);
+    }
+
+    function updateGame(game, state) {
+        GameService.UpdateGame(game.id, state, function() {
+            //update the game directly on success, rather than refreshing everything
+            game.attributes.state = state;
+        }, logError);
+    }
+
+    function getTheme(state) {
+        switch (state) {
+            case 'UNAVAILABLE': return 'dark-grey';
+            case 'SOLD': return 'dark-orange';
+            case 'ON_LOAN': return 'dark-blue';
+            default: return 'default';
+        }
     }
 
     function calculateColumns(number) {
@@ -44,19 +64,35 @@ angular.module('app')
 
     function addGame($event) {
         $mdDialog.show({
-            controller: DialogCtrl,
+            controller: 'SearchGameCtrl',
             controllerAs: 'ctrl',
-            templateUrl: '/views/dialogs/add-game.html',
+            templateUrl: '/views/dialogs/search-game.html',
             parent: angular.element(document.body),
             targetEvent: $event,
-            clickOutsideToClose: true
+            clickOutsideToClose: true,
+            locals: {
+                title: 'Add a game to your library',
+                buttonText: 'Add',
+                callback: function(game, successCallback, errorCallback) {
+                              GameService.Add(game, successCallback, errorCallback);
+                          }
+            },
         }).then(loadGames);
     }
 
-    function DialogCtrl(GameService, $timeout, $q, $scope, $mdDialog) {
+    init();
+  }
+]);
+
+//todo: move this into it's own .js file
+angular.module('app').controller('SearchGameCtrl', ['GameService', '$scope', '$mdDialog', 'callback', 'title', 'buttonText',
+    function(GameService, $scope, $mdDialog, callback, title, buttonText) {
+        $scope.title = title;
+        $scope.buttonText = buttonText;
+
         var self = this;
-        self.querySearch = function(query) {
-            return GameService.Search(query);
+        self.querySearch = function(query, consoleId) {
+            return GameService.Search(query, consoleId);
         };
         self.cancel = function($event) {
           $mdDialog.cancel();
@@ -65,7 +101,7 @@ angular.module('app')
             if (!self.selectedItem) {
                 return self.cancel();
             }
-            GameService.Add(self.selectedItem,
+            callback(self.selectedItem,
                 function (success) {
                     $mdDialog.hide();
                 }, function(error) {
@@ -75,31 +111,4 @@ angular.module('app')
             );
         };
     }
-
-    //move common functions somewhere else
-    function logError(data) {
-        console.log(data)
-    };
-
-    function chunk(arr, size) {
-      var newArr = [];
-      for (var i = 0; i < arr.length; i += size) {
-        newArr.push(arr.slice(i, i+size));
-      }
-      return newArr;
-    }
-
-    function reverse(arr) {
-        var i = 0;
-        var j = arr.length - 1;
-        while (i < j) {
-            var x = arr[i];
-            arr[i] = arr[j];
-            arr[j] = x;
-            i++;
-            j--;
-        }
-    }
-
-    init();
-}]);
+]);

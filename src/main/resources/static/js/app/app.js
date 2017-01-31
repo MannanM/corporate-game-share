@@ -1,5 +1,5 @@
 //
-// Angular JS PunchCard Application
+// Angular JS Game Share Application
 //
 var app = angular.module('app', ['ngRoute', 'ngCookies', 'ngMaterial']);
 
@@ -35,11 +35,18 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .otherwise({ redirectTo: '/games'});
 }]);
+
 app.config(function($mdThemingProvider) {
-      $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('blue-grey');
-    });
+    $mdThemingProvider.theme('default') .primaryPalette('blue') .accentPalette('blue-grey');
+    $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+    $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
+    $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
+    $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+});
+
+app.filter('escape', function() {
+  return window.encodeURIComponent;
+});
 
 app.run(['$rootScope', '$location', '$cookieStore', '$http',
    function ($rootScope, $location, $cookieStore, $http) {
@@ -58,3 +65,29 @@ app.run(['$rootScope', '$location', '$cookieStore', '$http',
            }
        });
 }]);
+
+
+//common functions, should they live somewhere else?
+function logError(data) {
+    console.log(data)
+};
+
+function chunk(arr, size) {
+  var newArr = [];
+  for (var i = 0; i < arr.length; i += size) {
+    newArr.push(arr.slice(i, i+size));
+  }
+  return newArr;
+}
+
+function reverse(arr) {
+    var i = 0;
+    var j = arr.length - 1;
+    while (i < j) {
+        var x = arr[i];
+        arr[i] = arr[j];
+        arr[j] = x;
+        i++;
+        j--;
+    }
+}
