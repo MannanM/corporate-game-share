@@ -3,12 +3,11 @@
 //
 
 angular.module('app')
-    .controller('ApplicationController', ['$scope', '$rootScope', '$http', 'appConfig',
-        function($scope, $rootScope, $http, appConfig) {
+    .controller('ApplicationController', ['$scope', '$rootScope', 'appConfig', '$location', '$mdSidenav',
+        function($scope, $rootScope, appConfig, $location, $mdSidenav) {
 
     var vm = this;
     vm.url = appConfig.apiUrl;
-    vm.currentNavItem = 'games'
     vm.user = {};
     vm.loggedIn = false;
 
@@ -21,6 +20,14 @@ angular.module('app')
         vm.user = {};
         vm.loggedIn = false;
     });
+
+    $scope.isSectionSelected = function(section) {
+        return $location.path() == section ? 'active' : '';
+    }
+
+    $scope.toggleSidenav = function(menuId) {
+        $mdSidenav(menuId).toggle();
+    };
 
     vm.init = function() {
         console.log('loading app...' + appConfig.apiUrl);

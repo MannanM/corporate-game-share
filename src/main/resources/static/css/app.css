@@ -1,21 +1,71 @@
-#appHeader {
-    margin: 0;
+.docs-logo {
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 0 0 16px;
+  margin: 0 auto;
+}
+.docs-logo:focus {
+  outline: none;
+}
+.docs-logo > img {
+  height: 150px;
+  width: auto;
+  display: block;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+.nav-header {
+  background-color: rgb(21,101,192);
+  -webkit-flex-shrink: 0;
+          flex-shrink: 0;
+  z-index: 2;
+}
+/*Navigation*/
+.md-sidenav-left, .md-sidenav-left .md-subheader {
+    background-color: rgb(21,101,192);
+}
+.md-sidenav-left, .md-sidenav-left a, .md-sidenav-left md-subheader-content, .md-sidenav-left .md-subheader {
+    color: #fff;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    text-decoration: none;
+}
+/*Navigation Active*/
+.md-sidenav-left .active{
+    background-color: #267ED5;
+}
+/*Navigation Header*/
+.md-sidenav-left .md-subheader {
+    color: rgba(255, 255, 255, 0.54)
+}
+/*Navigation Icons*/
+.md-sidenav-left .active md-icon{
+    color: #000;
+}
+
+/*Footer*/
+#license-footer {
+    -webkit-align-self: flex-end;
+    align-self: flex-end;
+    padding: 16px 32px;
     width: 100%;
-    border-bottom: dashed 1px #cccccc;
-    background-color: white;
+    text-align: center;
+    font-size: small;
+    border-top: 1px solid #ddd;
 }
 
-#appHeader h1 {
-    padding-bottom: 10px;
-}
-
-#appView {
-    padding-top: 20px;
-}
-
-#footerView {
-    padding-top: 200px;
-}
 md-grid-list .green { background: #b9f6ca; }
 md-grid-list .red { background: #ff8a80; }
 

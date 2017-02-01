@@ -1,7 +1,7 @@
 //
 // Angular JS Game Share Application
 //
-var app = angular.module('app', ['ngRoute', 'ngCookies', 'ngMaterial']);
+var app = angular.module('app', ['ngRoute', 'ngCookies', 'ngMaterial', 'ngMdIcons']);
 
 if (typeof bootstrapApp == 'function') {
     bootstrapApp(app);
@@ -66,6 +66,16 @@ app.run(['$rootScope', '$location', '$cookieStore', '$http',
        });
 }]);
 
+app.controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+   $scope.close = function () {
+     // Component lookup should always be available since we are not using `ng-if`
+     $mdSidenav('left').close()
+       .then(function () {
+         $log.debug("close LEFT is done");
+       });
+
+   };
+ });
 
 //common functions, should they live somewhere else?
 function logError(data) {

@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head/>
+<body>
+<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <header th:fragment="logo">
+        <a ng-href="/" class="docs-logo">
+            <img src="//material.angularjs.org/latest/img/icons/angular-logo.svg" alt="" />
+        </a>
+    </header>
+    <md-toolbar ng-if="ac.loggedIn" th:fragment="user-info" class="md-hue-2">
+        <span flex=""></span>
+        <div layout="column" class="md-toolbar-tools-bottom inset">
+            <div>{{ac.user.attributes.name}}</div>
+            <div>{{ac.user.attributes.email}}</div>
+        </div>
+    </md-toolbar>
+    <md-list th:fragment="links">
+        <md-divider></md-divider>
+        <md-subheader>Sharing</md-subheader>
+        <md-list-item class="md-no-proxy _md {{isSectionSelected('/games')}}">
+            <a ng-href="#/games">
+                <md-item-content md-ink-ripple="" layout="row" layout-align="start center">
+                    <div class="inset">
+                        <md-icon md-font-icon="fa-gamepad" class="fa fa-lg"></md-icon>
+                    </div>
+                    <div class="inset">My Library</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+        <md-list-item class="md-no-proxy _md {{isSectionSelected('/share')}}">
+            <a ng-href="#/share">
+                <md-item-content md-ink-ripple="" layout="row" layout-align="start center">
+                    <div class="inset">
+                        <md-icon md-font-icon="fa-share-alt" class="fa fa-lg"></md-icon>
+                    </div>
+                    <div class="inset">Find a Game</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+        <md-list-item class="md-no-proxy _md {{isSectionSelected('/requests')}}">
+            <a ng-href="#/requests">
+                <md-item-content md-ink-ripple="" layout="row" layout-align="start center">
+                    <div class="inset">
+                        <md-icon md-font-icon="fa-calendar" class="fa fa-lg"></md-icon>
+                    </div>
+                    <div class="inset">Active Requests</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+        <md-list-item class="md-no-proxy _md {{isSectionSelected('/users')}}">
+            <a ng-href="#/users">
+                <md-item-content md-ink-ripple="" layout="row" layout-align="start center">
+                    <div class="inset">
+                        <md-icon md-font-icon="fa-users" class="fa fa-lg"></md-icon>
+                    </div>
+                    <div class="inset">Browse Users</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-subheader>Management</md-subheader>
+        <md-list-item class="md-no-proxy _md {{isSectionSelected('/options')}}">
+            <a href="#/options">
+                <md-item-content md-ink-ripple="" layout="row" layout-align="start center">
+                    <div class="inset">
+                        <md-icon md-font-icon="fa-cogs" class="fa fa-lg"></md-icon>
+                    </div>
+                    <div class="inset">Options</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+        <md-list-item>
+            <a href="#/login">
+                <md-item-content md-ink-ripple="" layout="row" layout-align="start center">
+                    <div class="inset">
+                        <md-icon md-font-icon="fa-sign-out" class="fa fa-lg"></md-icon>
+                    </div>
+                    <div class="inset">Logout</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+    </md-list>
+</md-sidenav>
+</body>
+</html>

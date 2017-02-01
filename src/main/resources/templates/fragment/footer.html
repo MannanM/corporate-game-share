@@ -2,25 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head/>
     <body>
-        <div id="footerView" class="container" th:fragment="footer">
-            <div class="text-center" th:text="${name} + ' &copy; 2017'">&copy; 2017</div>
-        </div>
-        <script th:fragment="scripts" type="text/javascript" src="js/libs/jquery-3.1.1.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/libs/bootstrap.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-cookies.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/app.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/services/authentication.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/services/game.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/applicationController.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/gamesController.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/optionsController.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/loginController.js"/>
-        <script th:fragment="scripts" type="text/javascript" src="js/app/controllers/registerController.js"/>
+        <md-content th:fragment="footer" md-scroll-y="" layout="column" flex="">
+            <div layout="row" flex="noshrink" layout-align="center center">
+                <div id="license-footer" flex="">
+                    <a href="https://corporate-game-share.herokuapp.com" class="md-default-theme md-accent">
+                        Game Share</a>
+                    2017. Source on
+                    <a ng-href="https://github.com/MannanM/corporate-game-share" class="md-accent">
+                        GitHub</a>.
+                </div>
+            </div>
+        </md-content>
     </body>
 </html>

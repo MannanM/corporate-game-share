@@ -1,42 +1,20 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title th:text="${name}"></title>
-        <link rel="stylesheet" href="css/app.css"/>
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <script type="text/javascript" th:inline="javascript">
-        /*<![CDATA[*/
-            function bootstrapApp(app) {
-                console.log('boot strapping app...');
-                app.constant('appConfig', {
-                   apiUrl: [[${apiUrl}]]
-                });
-            }
-        /*]]>*/
-        </script>
-        <!-- Angular Material style sheet -->
-        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css"/>
-    </head>
-    <body>
-        <div th:replace="fragment/header :: header"/>
-
-        <div class="container">
-
-            <div id="appView" ng-app="app" ng-controller="ApplicationController as ac" ng-init="ac.init()">
-                <md-nav-bar ng-show="ac.loggedIn" md-selected-nav-item="ac.currentNavItem">
-                    <md-nav-item md-nav-href="#/games" name="games" value="games">Games</md-nav-item>
-                    <md-nav-item md-nav-href="#/options" name="options" value="options">Options</md-nav-item>
-                    <md-nav-item md-nav-href="#/login" name="options" value="options">Logout</md-nav-item>
-                </md-nav-bar>
-                <div class="text-center">
-                    <ng-view></ng-view>
+    <head th:replace="fragment/header :: header"></head>
+    <body layout="row" ng-app="app" ng-controller="ApplicationController as ac" ng-init="ac.init()">
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+            <header th:replace="fragment/side-nav :: logo"></header>
+            <md-toolbar th:replace="fragment/side-nav :: user-info"></md-toolbar>
+            <md-list th:replace="fragment/side-nav :: links"></md-list>
+        </md-sidenav>
+        <div layout="column" class="relative" layout-fill="" role="main">
+            <md-content flex="" md-scroll-y="">
+                <div layout="column" layout-align="top center">
+                    <ng-view layout-fill=""></ng-view>
                 </div>
-            </div>
+                <div flex=""></div>
+            </md-content>
+            <md-content th:replace="fragment/footer :: footer"></md-content>
         </div>
-
-        <div th:replace="fragment/footer :: footer"/>
-        <div th:replace="fragment/footer :: scripts"/>
-
     </body>
 </html>

@@ -1,2 +1,18 @@
-<h1>Options</h1>
-<button ng-click="oc.onClickMe()">Click Me</button>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button ng-click="$parent.toggleSidenav('left')" hide-gt-md aria-label="Menu">
+            <ng-md-icon icon="menu"></ng-md-icon>
+        </md-button>
+        <h2>
+            <md-icon md-font-icon="fa-cogs" class="fa fa-lg"></md-icon>
+            <span>Options</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-raised" aria-label="Button">
+            Button
+        </md-button>
+    </div>
+</md-toolbar>
+<div layout-padding flex="noshrink">
+    <!-- content -->
+</div>
