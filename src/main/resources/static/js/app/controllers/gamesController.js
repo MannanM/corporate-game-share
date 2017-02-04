@@ -4,7 +4,6 @@ angular.module('app').controller('GamesController', ['GameService', '$rootScope'
     var vm        = this;
     vm.consoles   = [];
     vm.games      = [];
-    vm.noGames    = false;
     vm.addGame    = addGame;
     vm.updateGame = updateGame;
     vm.getTheme   = getTheme;
@@ -24,20 +23,7 @@ angular.module('app').controller('GamesController', ['GameService', '$rootScope'
 
     function loadGames() {
         GameService.GetGames(function(data) {
-            var gameCount = data.length;
-            if (gameCount == 0) {
-                vm.noGames = true;
-            } else {
-                vm.noGames = false;
-                calculateColumns(4);
-                if (data.length <= 6) {
-                    calculateColumns(6/3);
-                } else if (data.length <= 9) {
-                    calculateColumns(9/3);
-                }
-                reverse(data);
-                vm.games = chunk(data, vm.columns);
-            }
+            vm.games = reverse(data);
         }, logError);
     }
 
@@ -55,11 +41,6 @@ angular.module('app').controller('GamesController', ['GameService', '$rootScope'
             case 'ON_LOAN': return 'dark-blue';
             default: return 'default';
         }
-    }
-
-    function calculateColumns(number) {
-        vm.columns = number;
-        vm.size = Math.floor(100 / vm.columns);
     }
 
     function addGame($event) {

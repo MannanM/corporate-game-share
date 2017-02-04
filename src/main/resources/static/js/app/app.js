@@ -100,4 +100,5 @@ function reverse(arr) {
         i++;
         j--;
     }
+    return arr;
 }
