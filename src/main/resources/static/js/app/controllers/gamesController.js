@@ -5,8 +5,6 @@ angular.module('app').controller('GamesController', ['GameService', '$rootScope'
     vm.consoles   = [];
     vm.games      = [];
     vm.addGame    = addGame;
-    vm.updateGame = updateGame;
-    vm.getTheme   = getTheme;
     vm.alert      = function(data) {
         alert(data);
     }
@@ -25,22 +23,6 @@ angular.module('app').controller('GamesController', ['GameService', '$rootScope'
         GameService.GetGames(function(data) {
             vm.games = reverse(data);
         }, logError);
-    }
-
-    function updateGame(game, state) {
-        GameService.UpdateGame(game.id, state, function() {
-            //update the game directly on success, rather than refreshing everything
-            game.attributes.state = state;
-        }, logError);
-    }
-
-    function getTheme(state) {
-        switch (state) {
-            case 'UNAVAILABLE': return 'dark-grey';
-            case 'SOLD': return 'dark-orange';
-            case 'ON_LOAN': return 'dark-blue';
-            default: return 'default';
-        }
     }
 
     function addGame($event) {

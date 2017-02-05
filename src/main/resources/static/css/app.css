@@ -66,6 +66,13 @@
     border-top: 1px solid #ddd;
 }
 
+/*Games Page*/
+game-card {
+  margin-bottom: 10px;
+}
+game-card md-card {
+  height: 100%;
+}
 md-grid-list .green { background: #b9f6ca; }
 md-grid-list .red { background: #ff8a80; }
 

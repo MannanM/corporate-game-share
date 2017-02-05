@@ -19,43 +19,17 @@
     <section>
         <md-subheader class="md-primary">Games You Own</md-subheader>
         <div ng-if="gc.games.length == 0">
-            You haven't added any games yet. Why you don't you
-            <a ng-click="gc.addGame($event)" class="md-default-theme md-accent">add one</a> now!
+            You haven't added any games yet. You can add games at any time by pressing the
+            <md-button class="md-raised" ng-click="gc.addGame($event)" aria-label="Add Game">
+                <md-icon md-font-icon="fa-plus" class="fa"></md-icon>
+                Add Game
+            </md-button>
+            button in the top right.
         </div>
         <div class='md-padding' layout="row" layout-wrap>
-            <md-card ng-repeat="game in gc.games"  md-theme="{{gc.getTheme(game.attributes.state)}}" md-theme-watch class="md-whiteframe-11dp"
-                     flex-xl="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" style="margin-left:0;margin-right:0">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">
-                            {{game.attributes.game.attributes.name}}
-                        </span>
-                        <span class="md-subhead">
-                            <md-icon md-svg-src="img/icons/{{game.attributes.game.attributes.console | escape}}.svg"></md-icon>
-                            {{game.attributes.game.attributes.developer}}
-                        </span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <img ng-src="{{game.attributes.game.attributes.image}}" class="md-media-100"/>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-content>
-                    <p class="text-left">Added on {{game.attributes.created | date: 'mediumDate'}}
-                        &amp; {{game.attributes.state | lowercase}}.</p>
-                </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <span ng-if="game.attributes.state == 'AVAILABLE'">
-                        <md-button ng-click="gc.updateGame(game, 'UNAVAILABLE')" class="md-raised">Still Playing</md-button>
-                        <md-button ng-click="gc.updateGame(game, 'SOLD')" class="md-raised">Sold It</md-button>
-                    </span>
-                    <span ng-if="game.attributes.state == 'UNAVAILABLE'">
-                        <md-button ng-click="gc.updateGame(game, 'AVAILABLE')" class="md-raised">Finished Playing</md-button>
-                    </span>
-                    <span ng-if="game.attributes.state == 'SOLD'">
-                        <md-button ng-click="gc.updateGame(game, 'AVAILABLE')" class="md-raised">Re-Purchased</md-button>
-                    </span>
-                </md-card-actions>
-            </md-card>
+            <game-card ng-repeat="game in gc.games" game="game" style=""
+               flex-xl="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100">
+            </game-card>
         </div>
     </section>
     <section>
