@@ -8,19 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 
 @Entity(name = "library")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "game_id"})} )
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"owner_id", "game_id"})} )
 public class LibraryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "library_seq_gen")
+    @SequenceGenerator(name = "library_seq_gen", sequenceName = "library_id_seq")
     private Long id;
 
     @ManyToOne(optional = false)
-    public UserEntity user;
+    public UserEntity owner;
 
     @ManyToOne
     private UserEntity borrower;
@@ -44,12 +46,12 @@ public class LibraryEntity {
         this.id = id;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getOwner() {
+        return owner;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setOwner(UserEntity owner) {
+        this.owner = owner;
     }
 
     public GameEntity getGame() {

@@ -6,6 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface LibraryRepository extends PagingAndSortingRepository<LibraryEntity, Long> {
-    List<LibraryEntity> findByUserIdOrderByCreated(long id);
-    LibraryEntity findByUserIdAndGameId(long userId, long gameId);
+    List<LibraryEntity> findByOwnerIdOrderByCreated(long ownerId);
+    LibraryEntity findByOwnerIdAndGameId(long ownerId, long gameId);
 }

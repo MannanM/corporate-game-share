@@ -19,7 +19,7 @@ public class WikiElementTranslator {
     private static final String SEPARATOR = ",";
 
     public LocalDate extractDate(Element td) {
-        if (td.children().size() == 2) {
+        if (td != null && td.children().size() == 2) {
             //<span class="sortkey" style="display:none;speak:none">000000002015-04-22-0000</span>
             //<span style="white-space:nowrap">April 22, 2015</span>
             String text = correctPartialDates(td);

@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity(name = "console")
 public class ConsoleEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "console_seq_gen")
+    @SequenceGenerator(name = "console_seq_gen", sequenceName = "console_id_seq")
     private Long id;
     @Column(unique = true)
     private String name;

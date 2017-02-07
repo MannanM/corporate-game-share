@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface BorrowRepository extends JpaRepository<BorrowEntity, Long> {
     @Query("select b from borrow b " +
-            "where (b.requester.id = ?1 or b.library.user.id = ?1)" +
+            "where (b.requester.id = ?1 or b.library.owner.id = ?1)" +
             "and b.completed = null " +
             "order by b.start")
     List<BorrowEntity> findActiveByUser(Long userId);

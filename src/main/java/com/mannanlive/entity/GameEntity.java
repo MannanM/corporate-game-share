@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.JoinColumn;
@@ -17,7 +18,8 @@ import java.util.List;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "console_id"})} )
 public class GameEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_seq_gen")
+    @SequenceGenerator(name = "game_seq_gen", sequenceName = "game_id_seq")
     private Long id;
     private String name;
 

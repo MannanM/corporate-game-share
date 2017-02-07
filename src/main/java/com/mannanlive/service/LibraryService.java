@@ -26,7 +26,7 @@ public class LibraryService extends AbstractGameService {
     public Library getUsersLibrary(Authentication user, Long userId) {
         validateUserHasAccess(user, userId);
 
-        List<LibraryEntity> entities = libraryRepository.findByUserIdOrderByCreated(userId);
+        List<LibraryEntity> entities = libraryRepository.findByOwnerIdOrderByCreated(userId);
         List<LibraryGameData> collect = entities
                 .stream()
                 .map(entity -> translator.translate(entity))
@@ -64,7 +64,7 @@ public class LibraryService extends AbstractGameService {
         if (entity == null) {
             throw new HttpClientErrorException(NOT_FOUND, format("No library game exists with id '%d'.", libraryId));
         }
-        validateLibraryIsUsers(user, entity.getUser().getId());
+        validateLibraryIsUsers(user, entity.getOwner().getId());
 
         if (entity.getState() == GameState.ON_LOAN) {
             throw new HttpClientErrorException(BAD_REQUEST,

@@ -39,7 +39,7 @@ public class BorrowService extends AbstractGameService {
         long requestorId = validateNigelNoFriends(user, userId);
         UserEntity userEntity = validateUserHasAccess(user, userId);
 
-        LibraryEntity library = libraryRepository.findByUserIdAndGameId(userId, gameId);
+        LibraryEntity library = libraryRepository.findByOwnerIdAndGameId(userId, gameId);
         if (library == null) {
             throw new HttpClientErrorException(BAD_REQUEST,
                     format("User '%s' does not have the game '%d' in their library.", userEntity.getName(), gameId));

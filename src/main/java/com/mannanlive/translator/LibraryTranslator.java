@@ -26,8 +26,8 @@ public class LibraryTranslator {
         data.getAttributes().setRemoved(entity.getRemoved());
         data.getAttributes().setState(entity.getState());
         data.getAttributes().setGame(gameTranslator.translate(entity.getGame()).getData());
-        data.getAttributes().setOwner(new ResourceSummary("users", entity.getUser().getId().toString(),
-                entity.getUser().getName()));
+        data.getAttributes().setOwner(new ResourceSummary("users", entity.getOwner().getId().toString(),
+                entity.getOwner().getName()));
         if (entity.getBorrower() != null) {
             data.getAttributes().setOwner(new ResourceSummary("users", entity.getBorrower().getId().toString(),
                     entity.getBorrower().getName()));
@@ -40,7 +40,7 @@ public class LibraryTranslator {
         entity.setState(GameState.AVAILABLE);
         entity.setCreated(LocalDateTime.now());
         entity.setGame(new GameEntity(Long.parseLong(data.getAttributes().getGame().getId())));
-        entity.setUser(new UserEntity(userId));
+        entity.setOwner(new UserEntity(userId));
         return entity;
     }
 
@@ -51,7 +51,7 @@ public class LibraryTranslator {
         entity.setLibrary(library);
         entity.setRequester(new UserEntity(requestor));
         entity.setStart(data.getAttributes().getStartDate());
-        entity.setEnd(data.getAttributes().getEndDate());
+        entity.setFinish(data.getAttributes().getEndDate());
         return entity;
     }
 
@@ -61,10 +61,10 @@ public class LibraryTranslator {
         data.getAttributes().setRequested(entity.getCreated());
         data.getAttributes().setCompleted(entity.getCompleted());
         data.getAttributes().setStartDate(entity.getStart());
-        data.getAttributes().setEndDate(entity.getEnd());
+        data.getAttributes().setEndDate(entity.getFinish());
         data.getAttributes().setState(entity.getState());
-        data.getAttributes().setOwner(new ResourceSummary("users", entity.getLibrary().getUser().getId().toString(),
-                entity.getLibrary().getUser().getName()));
+        data.getAttributes().setOwner(new ResourceSummary("users", entity.getLibrary().getOwner().getId().toString(),
+                entity.getLibrary().getOwner().getName()));
         data.getAttributes().setGame(new ResourceSummary("games", entity.getLibrary().getGame().getId().toString(),
                 entity.getLibrary().getGame().getName()));
         data.getAttributes().setBorrower(new ResourceSummary("users", entity.getRequester().getId().toString(),

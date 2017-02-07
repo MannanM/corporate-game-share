@@ -35,7 +35,7 @@ public class GameListRefreshConfiguration {
 
     private WikiElementTranslator translator = new WikiElementTranslator();
 
-    @Scheduled(fixedRate = 1000 * 60 * 60 * 24)
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 24, initialDelay = 1000 * 60 * 5)
     public void refreshGames() {
         consoleRepository.findAll().forEach(this::refreshGamesForPlatform);
     }
@@ -55,6 +55,7 @@ public class GameListRefreshConfiguration {
     private void upsertGame(GameEntity game) {
         GameEntity entity = gameRepository.findByNameAndConsole(game.getName(), game.getConsole());
         if (entity != null) {
+            //preserve some attributes
             game.setId(entity.getId());
             game.setImageLink(entity.getImageLink());
         }

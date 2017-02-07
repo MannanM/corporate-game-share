@@ -8,14 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "borrow")
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "game_id"})} )
 public class BorrowEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "borrow_seq_gen")
+    @SequenceGenerator(name = "borrow_seq_gen", sequenceName = "borrow_id_seq")
     private Long id;
 
     @ManyToOne(optional = false)
@@ -32,7 +33,7 @@ public class BorrowEntity {
     public LocalDate start;
 
     @Column(nullable = false)
-    public LocalDate end;
+    public LocalDate finish;
 
     @Column(nullable = false)
     public LocalDateTime created;
@@ -76,8 +77,8 @@ public class BorrowEntity {
         this.start = start;
     }
 
-    public void setEnd(LocalDate end) {
-        this.end = end;
+    public void setFinish(LocalDate finish) {
+        this.finish = finish;
     }
 
     public LocalDateTime getCreated() {
@@ -100,7 +101,7 @@ public class BorrowEntity {
         return start;
     }
 
-    public LocalDate getEnd() {
-        return end;
+    public LocalDate getFinish() {
+        return finish;
     }
 }

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,8 @@ public class RoleEntity implements GrantedAuthority {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq_gen")
+    @SequenceGenerator(name = "role_seq_gen", sequenceName = "role_id_seq")
     private Integer id;
 
     @NotEmpty
