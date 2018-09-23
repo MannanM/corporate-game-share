@@ -3,6 +3,8 @@ package com.mannanlive.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -23,6 +25,11 @@ import static java.util.Collections.singletonList;
 @EnableSwagger2
 public class SwaggerConfiguration {
     private static final String BASIC_AUTH = "Basic Auth";
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Value("#{environment['HEROKU_RELEASE_VERSION']}")
     private String version;

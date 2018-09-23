@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -40,16 +41,16 @@ public class GameService {
     private SpecificationBuilder<GameEntity> specificationBuilder = new SpecificationBuilder<>();
 
     public Game findById(long gameId) {
-        GameEntity result = gameRepository.findOne(gameId);
-        if (result == null) {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        Optional<GameEntity> result = gameRepository.findById(gameId);
+        if (result.isPresent()) {
+            return gameTranslator.translate(result.get());
         }
-        return gameTranslator.translate(result);
+        throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
     }
 
     public Genres listAllGenres(int pageNumber, int pageSize) {
         int safeGetPageSize = getSafeGetPageSize(pageSize);
-        return new Genres(gameRepository.findAllGenres(new PageRequest(pageNumber, safeGetPageSize)));
+        return new Genres(gameRepository.findAllGenres(PageRequest.of(pageNumber, safeGetPageSize)));
     }
 
     public Consoles listAllConsoles() {
@@ -62,7 +63,7 @@ public class GameService {
     public Games searchGames(List<SearchCriterion> searchCriteria, int pageNumber, int pageSize) {
         int safeGetPageSize = getSafeGetPageSize(pageSize);
         Specification<GameEntity> specification = specificationBuilder.createSpecification(searchCriteria);
-        Page<GameEntity> gameEntities = gameRepository.findAll(specification, new PageRequest(pageNumber, safeGetPageSize));
+        Page<GameEntity> gameEntities = gameRepository.findAll(specification, PageRequest.of(pageNumber, safeGetPageSize));
         return new Games(gameEntities.getContent()
                 .stream()
                 .map(gameEntity -> gameTranslator.translate(gameEntity))

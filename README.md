@@ -13,17 +13,15 @@ Local Development machine example:
 
 ### Local Development Profile
 
-Set the active profile to "local" to pick handy development defaults.
-
-These properties should be set in the **application-local.properties** file.
+These properties should be set in the `application-default.yml` file.
 
 On a linux based system you can easily do this as follows:
 
-    SPRING_ACTIVE_PROFILES=local ./gradlew bootRun -i
+    ./gradlew bootRun -i
 
-When running from inside IntelliJ you can set the "VM Options" on the run configuration to:
+When running from inside IntelliJ you can run or debug:
 
-    -Dspring.profiles.active=local
+    CorporateGameSwapApplication.class
 
 
 **H2 console:**

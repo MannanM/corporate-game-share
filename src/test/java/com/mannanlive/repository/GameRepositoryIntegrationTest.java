@@ -20,7 +20,6 @@ public class GameRepositoryIntegrationTest extends AbstractRepositoryIntegration
     @Autowired
     private GameRepository repository;
 
-
     private SpecificationBuilder<GameEntity> specificationBuilder = new SpecificationBuilder<>();
 
     @Test
@@ -34,7 +33,7 @@ public class GameRepositoryIntegrationTest extends AbstractRepositoryIntegration
 
     @Test
     public void findAllGenresReturnsUniqueSortedList() {
-        List<String> actual = repository.findAllGenres(new PageRequest(0, 2));
+        List<String> actual = repository.findAllGenres(PageRequest.of(0, 2));
         assertThat(actual).isEqualTo(Arrays.asList("action rpg", "first person shooter"));
     }
 
@@ -76,7 +75,4 @@ public class GameRepositoryIntegrationTest extends AbstractRepositoryIntegration
         List<GameEntity> actual = repository.findAll(specification);
         assertThat(actual.size()).isEqualTo(1);
     }
-
-
-
 }

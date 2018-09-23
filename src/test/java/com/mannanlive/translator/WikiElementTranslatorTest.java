@@ -29,21 +29,21 @@ public class WikiElementTranslatorTest {
     public void extractDateWithFullyQualifiedDate() throws Exception {
         td.appendChild(createSpanWithText("000000002015-04-22-0000"));
         td.appendChild(createSpanWithText("April 22, 2015"));
-        assertThat(translator.extractDate(td)).isEqualByComparingTo(LocalDate.of(2015, Month.APRIL, 22));
+        assertThat(translator.extractDate(td)).isEqualTo(LocalDate.of(2015, Month.APRIL, 22));
     }
 
     @Test
     public void extractDateWithYearOnly() throws Exception {
         td.appendChild(createSpanWithText("000000002015-04-22-0000"));
         td.appendChild(createSpanWithText("2015"));
-        assertThat(translator.extractDate(td)).isEqualByComparingTo(LocalDate.of(2015, Month.DECEMBER, 31));
+        assertThat(translator.extractDate(td)).isEqualTo(LocalDate.of(2015, Month.DECEMBER, 31));
     }
 
     @Test
     public void extractDateWithMonthAndYearOnly() throws Exception {
         td.appendChild(createSpanWithText("000000002015-04-22-0000"));
         td.appendChild(createSpanWithText("Jul 2015"));
-        assertThat(translator.extractDate(td)).isEqualByComparingTo(LocalDate.of(2015, Month.JULY, 1));
+        assertThat(translator.extractDate(td)).isEqualTo(LocalDate.of(2015, Month.JULY, 1));
     }
 
     //Todo: This scenario could be fixed

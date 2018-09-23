@@ -26,8 +26,8 @@ public class SchemaTranslator {
         metadata.addAnnotatedClass(LibraryEntity.class);
         metadata.addAnnotatedClass(BorrowEntity.class);
 
-        SchemaExport export = new SchemaExport((MetadataImplementor) metadata.buildMetadata());
-        export.create(Target.SCRIPT);
+//        SchemaExport export = new SchemaExport((MetadataImplementor) metadata.buildMetadata());
+//        export.create(Target.SCRIPT);
     }
 
 }

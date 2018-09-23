@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -64,12 +65,12 @@ public class UserTranslator {
         if (consoleId == null) {
             return;
         }
-        ConsoleEntity consoleEntity = consoleRepository.findOne(consoleId);
-        if (consoleEntity == null) {
+        Optional<ConsoleEntity> consoleEntity = consoleRepository.findById(consoleId);
+        if (!consoleEntity.isPresent()) {
             throw new HttpClientErrorException(BAD_REQUEST, format("No console exists with id '%d'.", consoleId));
         }
         userEntity.setConsoles(new HashSet<>(1));
-        userEntity.getConsoles().add(consoleEntity);
+        userEntity.getConsoles().add(consoleEntity.get());
     }
 
     private HashSet<RoleEntity> addUserRole() {

@@ -5,7 +5,6 @@ import com.mannanlive.model.usermodel.NewUserRequest;
 import com.mannanlive.model.usermodel.User;
 import com.mannanlive.model.usermodel.UserData;
 import com.mannanlive.model.usermodel.Users;
-import com.mannanlive.repository.ConsoleRepository;
 import com.mannanlive.repository.UserRepository;
 import com.mannanlive.translator.UserTranslator;
 import org.springframework.beans.factory.annotation.Autowired;

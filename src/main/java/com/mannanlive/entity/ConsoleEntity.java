@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class ConsoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "console_seq_gen")
-    @SequenceGenerator(name = "console_seq_gen", sequenceName = "console_id_seq")
+    @SequenceGenerator(name = "console_seq_gen", sequenceName = "console_id_seq", allocationSize = 1)
     private Long id;
     @Column(unique = true)
     private String name;

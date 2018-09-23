@@ -11,6 +11,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Optional;
+
 import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -49,10 +51,10 @@ public class AbstractGameService {
     }
 
     private UserEntity findUser(Long userId) {
-        UserEntity userEntity = userRepository.findOne(userId);
-        if (userEntity == null) {
-            throw new HttpClientErrorException(NOT_FOUND, format("No user exists with id '%d'.", userId));
+        Optional<UserEntity> userEntity = userRepository.findById(userId);
+        if (userEntity.isPresent()) {
+            return userEntity.get();
         }
-        return userEntity;
+        throw new HttpClientErrorException(NOT_FOUND, format("No user exists with id '%d'.", userId));
     }
 }

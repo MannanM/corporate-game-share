@@ -12,6 +12,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -60,10 +61,11 @@ public class LibraryService extends AbstractGameService {
     }
 
     private LibraryEntity getAndValidateGameStateChange(Authentication user, Long libraryId, LibraryGameData data) {
-        LibraryEntity entity = libraryRepository.findOne(libraryId);
-        if (entity == null) {
+        Optional<LibraryEntity> optional = libraryRepository.findById(libraryId);
+        if (!optional.isPresent()) {
             throw new HttpClientErrorException(NOT_FOUND, format("No library game exists with id '%d'.", libraryId));
         }
+        LibraryEntity entity = optional.get();
         validateLibraryIsUsers(user, entity.getOwner().getId());
 
         if (entity.getState() == GameState.ON_LOAN) {

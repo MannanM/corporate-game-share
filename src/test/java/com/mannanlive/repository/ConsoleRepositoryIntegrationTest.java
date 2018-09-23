@@ -15,7 +15,7 @@ public class ConsoleRepositoryIntegrationTest extends AbstractRepositoryIntegrat
     public void persistUserEntityGeneratesId() {
         ConsoleEntity expected = entityManager.persist(new ConsoleEntity());
 
-        ConsoleEntity actual = repository.findOne(expected.getId());
+        ConsoleEntity actual = repository.findById(expected.getId()).get();
 
         assertThat(actual).isEqualTo(expected);
     }
