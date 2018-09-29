@@ -1,7 +1,7 @@
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
-*.log
+*.log*
 
 ### STS ###
 .apt_generated
@@ -25,3 +25,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### Node ###
+node_modules/
+src/main/resources/static/built/bundle*
