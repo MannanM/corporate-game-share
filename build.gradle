@@ -48,7 +48,7 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-task stage(dependsOn: ['clean', 'npmInstall', 'npmSetup', 'npm_build', 'bootJar'])
+task stage(dependsOn: ['clean', 'npmInstall', 'npmSetup', 'npm_run_build', 'bootJar'])
 
 bootJar {
     it.mustRunAfter clean

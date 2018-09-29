@@ -31,9 +31,9 @@
     "rest": "^2.0.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
-    "test": "webpack --mode development",
-    "build": "webpack --mode production"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "test": "webpack -p --progress --config webpack.dev.js",
+    "build": "webpack -p --progress --config webpack.prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
@@ -42,7 +42,8 @@
     "babel-loader": "^8.0.2",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.1.8"
+    "webpack-dev-server": "^3.1.8",
+    "webpack-merge": "^4.1.4"
   },
   "babel": {
     "presets": [

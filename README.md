@@ -26,8 +26,9 @@ When running from inside IntelliJ you can run or debug:
 ### React Build Process
 
 You will need to install NPM by running `./gradlew npmInstall npmSetup`.
-You can generate a new resource bundle by running `./gradlew npm_debug`.
+You can generate a new resource bundle by running `./gradlew npm_test`.
 This bundle will be stored in `src/main/resources/static/built/bundle.js`.
+To generate the production bundle, run `./gradlew npm_run_build`
 
 Highly recommend you use the hot loading below to speed up development.
 
