@@ -1,26 +1,44 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import { Row, Col, Grid } from 'react-bootstrap';
-import Header from "./nav/Header";
-import Page from "./nav/Page";
-import GameList from "./Page/GameList";
-import Home from "./Page/Home";
+import Header from './nav/Header';
+import Page from './nav/Page';
+import GameList from './page/GameList';
+import Home from './page/Home';
+
+import { GetUser } from './Client';
 
 class App extends Component {
+
+ constructor(props) {
+   super(props);
+   this.state = { isAuthenticated: false };
+ }
+
+ componentDidMount() {
+   const user = GetUser().then(user => {
+      console.log(user);
+      this.setState({ isAuthenticated: true, user : user });
+   }).catch(error => {
+     console.log(error);
+   });
+ }
+
 	render() {
-	 const homePage = () => ( <Page title="Welcome" subtitle="to the Game-Share app!"><Home /></Page> );
-	 const gamePage = () => ( <Page title="Games" subtitle="List of available games"><GameList /></Page> );
+	console.log('render');
+	 const homePage = () => ( <Page title='Welcome' subtitle='to the Game-Share app!'><Home /></Page> );
+	 const gamePage = () => ( <Page title='Games' subtitle='available to collect and share'><GameList /></Page> );
 		return (
     <Router>
       <>
-        <Header />
+        <Header user={this.state.user} />
         <Grid>
           <Row>
             <Col>
-              <Route exact path="/" component={homePage} />
-              <Route exact path="/game/list" component={gamePage} />
+              <Route exact path='/' component={homePage} />
+              <Route exact path='/game/list' component={gamePage} />
             </Col>
           </Row>
         </Grid>
