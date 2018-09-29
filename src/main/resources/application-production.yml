@@ -1,1 +1,6 @@
 apiUrl: https://corporate-game-share.herokuapp.com/
+
+
+facebook:
+  client:
+    clientId: 304009870383533

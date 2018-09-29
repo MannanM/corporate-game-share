@@ -15,10 +15,14 @@ public class AppController {
     @Value("${apiUrl}")
     private String apiUrl;
 
+    @Value("${react-bundle}")
+    private String reactBundle;
+
     @RequestMapping(value = "/")
     public String index(Model model) {
         model.addAttribute("name", "CorpGameShare");
         model.addAttribute("apiUrl", apiUrl);
+        model.addAttribute("reactBundle", reactBundle);
         log.debug("bootstrapping app...");
         return "index";
     }

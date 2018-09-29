@@ -26,6 +26,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private OAuth2ClientContext oauth2ClientContext;
 
+    @Autowired
+    private UnauthorisedRedirect accessDeniedHandler;
+
 //    @Autowired
 //    private UserService userDetailsService;
 //
@@ -49,8 +52,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                             .permitAll()
                 .anyRequest().authenticated()
                 .and()
+                    .exceptionHandling().authenticationEntryPoint(accessDeniedHandler)
+                .and()
                     .logout().logoutSuccessUrl("/").permitAll()
-                .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+                .and()
+                    .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
+        ;
     }
 
     @Bean

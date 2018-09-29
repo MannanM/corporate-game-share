@@ -1,20 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragment/header :: header"></head>
-    <body layout="row" ng-app="app" ng-controller="ApplicationController as ac" ng-init="ac.init()">
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-            <header th:replace="fragment/side-nav :: logo"></header>
-            <md-toolbar th:replace="fragment/side-nav :: user-info"></md-toolbar>
-            <md-list th:replace="fragment/side-nav :: links"></md-list>
-        </md-sidenav>
-        <div layout="column" class="relative" layout-fill="" role="main">
-            <md-content flex="" md-scroll-y="">
-                <div layout="column" layout-align="top center">
-                    <ng-view layout-fill=""></ng-view>
-                </div>
-                <div flex=""></div>
-            </md-content>
-            <md-content th:replace="fragment/footer :: footer"></md-content>
-        </div>
-    </body>
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>ReactJS + Spring Data REST</title>
+    <link rel="stylesheet" href="/main.css"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+</head>
+<body>
+
+<div id="react"></div>
+
+
+<footer class="bs-docs-footer" role="contentinfo">
+    <div class="container">
+        Currently v0.0.1 · <a href="#">GitHub</a> · <a href="#">Issues</a>
+    </div>
+</footer>
+
+<script type="text/javascript" th:src="${reactBundle + '/built/bundle.js'}"></script>
+</body>
 </html>

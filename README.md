@@ -1,5 +1,5 @@
 # corporate-game-share
-App to register console games you own and share them with your co-workers.
+App to register console games you own and share them with your friends and co-workers.
 
 ### API Documentation
 
@@ -23,8 +23,35 @@ When running from inside IntelliJ you can run or debug:
 
     CorporateGameSwapApplication.class
 
+### React Build Process
 
-**H2 console:**
+You will need to install NPM by running `./gradlew npmInstall npmSetup`.
+You can generate a new resource bundle by running `./gradlew npm_debug`.
+This bundle will be stored in `src/main/resources/static/built/bundle.js`.
+
+Highly recommend you use the hot loading below to speed up development.
+
+### Hot Reloading
+
+#### React
+Ensure that the `react-bundle` property is set to http://localhost:8081 then run `./gradlew npm_start`.
+This will dynamically generate a new bundle everytime you make changes to any react files.
+It is served on a different port and not the one that is bundled with Spring Boot.
+
+#### Spring Boot
+IntelliJ instructions:
+- Go to Help -> Find Action
+- Type "Registry".
+- Find and mark : `compiler.automake.allow.when.app.running`.
+- Close the Dialog.
+- Go to Settings -> Build, Execution, Deployment -> Compiler.
+- Mark "Build project automatically".
+- Apply changes.
+
+
+### H2 Console
+
+Default/Local environment only:
 
     http://<host>:<port>/console/
 
