@@ -25,6 +25,12 @@ export default class Header extends Component {
               Game List
             </NavItem>
           </LinkContainer>
+
+          <LinkContainer to='/my-profile'>
+            <NavItem eventKey={3}>
+              My Profile
+            </NavItem>
+          </LinkContainer>
         </Nav>
         <Navbar.Text pullRight>
           { this.props.user ? 'Signed in as: ' + this.props.user.userAuthentication.details.name : '' }

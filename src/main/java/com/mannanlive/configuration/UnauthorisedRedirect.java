@@ -17,6 +17,7 @@ public class UnauthorisedRedirect implements AuthenticationEntryPoint {
         if (request.getRequestURI().startsWith("/v1")) {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            //todo: JSON API this
             response.getOutputStream().println("{ \"error\": \"" + authenticationException.getMessage() + "\" }");
         } else {
             response.sendRedirect("/");

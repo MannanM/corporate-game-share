@@ -49,6 +49,7 @@ dependencies {
 }
 
 task stage(dependsOn: ['clean', 'npmInstall', 'npmSetup', 'npm_run_build', 'bootJar'])
+processResources.mustRunAfter npm_run_build
 
 bootJar {
     it.mustRunAfter clean
