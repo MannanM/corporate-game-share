@@ -1,6 +1,10 @@
 # application properties
 apiUrl: http://localhost:#{'${server.port:8080}'}/api
 
+info:
+  date: 1987-09-01T23:55:15Z
+  version: Local
+
 ### Loads the React Bundle from your local webpack dev server or from the Spring Boot resources
 #react-bundle:
 react-bundle: http://localhost:8081

@@ -19,3 +19,6 @@ facebook:
    clientAuthenticationScheme: form
  resource:
    userInfoUri: https://graph.facebook.com/me
+
+info:
+  git: https://github.com/MannanM/corporate-game-share

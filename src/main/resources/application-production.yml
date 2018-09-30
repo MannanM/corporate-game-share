@@ -1,5 +1,8 @@
 apiUrl: https://corporate-game-share.herokuapp.com/
 
+info:
+  date: ${HEROKU_RELEASE_CREATED_AT}
+  version: "<a href='${info.git}/commits/${HEROKU_SLUG_COMMIT}'>${HEROKU_RELEASE_VERSION}</a>"
 
 facebook:
   client:

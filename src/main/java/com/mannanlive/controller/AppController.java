@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Controller
 public class AppController implements ErrorController {
@@ -22,6 +23,15 @@ public class AppController implements ErrorController {
 
     @Value("${react-bundle}")
     private String reactBundle;
+
+    @Value("${info.git}")
+    private String git;
+
+    @Value("${info.version}")
+    private String version;
+
+    @Value("#{new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\").parse(\"${info.date}\")}")
+    private Date date;
 
     @RequestMapping(value = "/")
     public String index(Model model) {
@@ -44,8 +54,10 @@ public class AppController implements ErrorController {
     }
 
     private String singlePageApp(Model model) {
-        model.addAttribute("name", "CorpGameShare");
         model.addAttribute("apiUrl", apiUrl);
+        model.addAttribute("git", git);
+        model.addAttribute("version", version);
+        model.addAttribute("date", date);
         model.addAttribute("reactBundle", reactBundle);
         log.debug("bootstrapping app...");
         return "index";
