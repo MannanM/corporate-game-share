@@ -33,7 +33,7 @@ export default class Header extends Component {
           </LinkContainer>
         </Nav>
         <Navbar.Text pullRight>
-          { this.props.user ? 'Signed in as: ' + this.props.user.userAuthentication.details.name : '' }
+          { this.props.user ? 'Signed in as: ' + this.props.user.data.attributes.name : '' }
         </Navbar.Text>
       </Navbar.Collapse>
     </Navbar>

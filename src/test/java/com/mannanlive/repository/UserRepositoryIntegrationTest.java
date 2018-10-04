@@ -12,7 +12,8 @@ public class UserRepositoryIntegrationTest extends AbstractRepositoryIntegration
 
     @Test
     public void persistUserEntityGeneratesId() {
-        UserEntity entity = new UserEntity("something@something.com", "Test", "hahah", "@something.com");
+        UserEntity entity = new UserEntity("Facebook", "1234567890", "Test",
+                "something@something.com", "http://somelink");
         UserEntity expected = entityManager.persist(entity);
 
         UserEntity actual = repository.findById(expected.getId()).get();
@@ -24,6 +25,6 @@ public class UserRepositoryIntegrationTest extends AbstractRepositoryIntegration
     public void testGetEntity() {
         UserEntity actual = repository.findById(1L).get();
 
-        assertThat(actual.getLogin()).isEqualTo("tom@ex.com.au");
+        assertThat(actual.getName()).isEqualTo("Mannan Mackie");
     }
 }

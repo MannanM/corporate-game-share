@@ -19,7 +19,7 @@ import java.util.List;
 public class GameEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_seq_gen")
-    @SequenceGenerator(name = "game_seq_gen", sequenceName = "game_id_seq")
+    @SequenceGenerator(name = "game_seq_gen", sequenceName = "game_id_seq", allocationSize = 1)
     private Long id;
     private String name;
 

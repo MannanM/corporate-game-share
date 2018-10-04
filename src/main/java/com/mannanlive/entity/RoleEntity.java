@@ -21,7 +21,7 @@ public class RoleEntity implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq_gen")
-    @SequenceGenerator(name = "role_seq_gen", sequenceName = "role_id_seq")
+    @SequenceGenerator(name = "role_seq_gen", sequenceName = "role_id_seq", allocationSize = 1)
     private Integer id;
 
     @NotEmpty

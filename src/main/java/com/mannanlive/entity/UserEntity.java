@@ -1,7 +1,8 @@
 package com.mannanlive.entity;
 
+import org.hibernate.validator.constraints.URL;
+
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,21 +22,27 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
-    @SequenceGenerator(name = "users_seq_gen", sequenceName = "users_id_seq")
+    @SequenceGenerator(name = "users_seq_gen", sequenceName = "users_id_seq", allocationSize = 1)
     private Long id;
 
     @NotEmpty
     private String name;
 
     @NotEmpty
-    @Column(unique = true, nullable = false)
-    private String login;
+    private String authProvider;
 
     @NotEmpty
-    private String password;
+    private String authId;
 
-    @NotEmpty
+    @Email
+    private String email;
+
+    @URL
+    private String imageLink;
     private String organisation;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastLogin;
+    private int loginCount;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {
@@ -51,15 +60,24 @@ public class UserEntity {
         //hibernate needs this
     }
 
-    public UserEntity(String login, String name, String password, String organisation) {
+    public UserEntity(String authProvider, String authId, String name, String email, String imageLink) {
+        this.authProvider = authProvider;
+        this.authId = authId;
         this.name = name;
-        this.login = login;
-        this.password = password;
-        this.organisation = organisation;
+        this.email = email;
+        this.imageLink = imageLink;
+        this.createdAt = LocalDateTime.now();
+        this.lastLogin = createdAt;
+        this.loginCount = 1;
     }
 
     public UserEntity(long id) {
         this.id = id;
+    }
+
+    public void login() {
+        this.lastLogin = LocalDateTime.now();
+        this.loginCount++;
     }
 
     public Long getId() {
@@ -78,20 +96,60 @@ public class UserEntity {
         this.name = name;
     }
 
-    public String getLogin() {
-        return login;
+    public String getAuthProvider() {
+        return authProvider;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setAuthProvider(String authProvider) {
+        this.authProvider = authProvider;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAuthId() {
+        return authId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAuthId(String authId) {
+        this.authId = authId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public int getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
     }
 
     public Set<RoleEntity> getRoles() {

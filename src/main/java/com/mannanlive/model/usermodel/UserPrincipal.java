@@ -23,7 +23,7 @@ public class UserPrincipal extends User implements UserDetails {
     @Override
     @JsonIgnore
     public String getPassword() {
-        return getData().getAttributes().getPassword();
+        return null;
     }
 
     @Override

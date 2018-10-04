@@ -11,10 +11,9 @@ public class UserAttributes {
     private String name;
     private String organisation;
     private String email;
+    private String imageLink;
     private Set<ResourceSummary> consoles = new HashSet<>();
 
-    @JsonIgnore
-    private String password;
     @JsonIgnore
     private Set<RoleEntity> roles = new HashSet<>();
 
@@ -42,12 +41,12 @@ public class UserAttributes {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public Set<RoleEntity> getRoles() {
