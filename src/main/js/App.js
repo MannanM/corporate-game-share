@@ -9,8 +9,9 @@ import Page from './nav/Page';
 
 import GameList from './page/GameList';
 import Home from './page/Home';
+import UserProfile from './page/UserProfile';
 
-import { GetUser } from './Client';
+import { WhoAmI } from './Client';
 
 class App extends Component {
 
@@ -20,20 +21,15 @@ class App extends Component {
  }
 
  componentDidMount() {
-   //setTimeout(() =>
-   GetUser().then(user => {
+   WhoAmI().then(user => {
       console.log(user);
       this.setState({ isAuthenticated: true, user : user });
    }).catch(error => {
      console.log(error);
    });
-   //, 2000);
  }
 
 	render() {
-	 const homePage = () => ( <Page title='Welcome' subtitle='to the Game-Share app!'><Home /></Page> );
-	 const gamePage = () => ( <Page title='Games' subtitle='available to collect and share'><GameList /></Page> );
-	 const userPage = () => ( <Page title='User' subtitle='User page'><GameList /></Page> );
 		return (
     <Router>
       <>
@@ -41,9 +37,9 @@ class App extends Component {
         <Grid>
           <Row>
             <Col>
-              <Route exact path='/' component={homePage} />
-              <Route exact path='/game/list' component={gamePage} />
-              <PrivateRoute exact path='/my-profile' component={userPage} authenticated={this.state.isAuthenticated} />
+              <Route exact path='/' component={() => <Page title='Welcome' subtitle='to the Game-Share app!'><Home /></Page>} />
+              <Route exact path='/game/list' component={() => <Page title='Games' subtitle='available to collect and share'><GameList /></Page>} />
+              <Route exact path='/user/:id' render={(props) => <UserProfile {...props} />} />
             </Col>
           </Row>
         </Grid>

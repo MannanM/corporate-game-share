@@ -4,8 +4,16 @@ export function GetGames(console) {
     .then(response => response.json());
 }
 
-export function GetUser() {
+export function WhoAmI() {
  return api('/v1/users/me');
+}
+
+export function GetUser(id) {
+ return api('/v1/users/' + id);
+}
+
+export function GetLibrary(id) {
+ return api('/v1/users/' + id + '/games');
 }
 
 export default function api(uri, options = {}) {

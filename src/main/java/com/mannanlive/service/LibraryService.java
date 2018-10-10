@@ -25,8 +25,6 @@ public class LibraryService extends AbstractGameService {
     private GameImageService gameImageService;
 
     public Library getUsersLibrary(Authentication user, Long userId) {
-        validateUserHasAccess(user, userId);
-
         List<LibraryEntity> entities = libraryRepository.findByOwnerIdOrderByCreated(userId);
         List<LibraryGameData> collect = entities
                 .stream()

@@ -9,14 +9,18 @@ import com.mannanlive.repository.RoleRepository;
 import com.mannanlive.repository.UserRepository;
 import com.mannanlive.translator.UserTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -73,5 +77,17 @@ public class UserService {
     public List<GrantedAuthority> getGrantedAuthorities(String authProvider, String authId) {
         UserEntity entity = repository.findByAuthProviderAndAuthId(authProvider, authId);
         return new ArrayList<>(entity.getRoles());
+    }
+
+    public User getUser(User principal, long userId) {
+        Optional<UserEntity> optional = repository.findById(userId);
+        if (optional.isPresent()) {
+            User translate = translator.translate(optional.get());
+            if (principal == null || !String.valueOf(userId).equals(principal.getData().getId())) {
+                translate.getData().getAttributes().setEmail(null);
+            }
+            return translate;
+        }
+        throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "No user with id: " + userId);
     }
 }

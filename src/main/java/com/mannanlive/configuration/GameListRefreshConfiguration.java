@@ -25,7 +25,7 @@ import static java.lang.String.format;
 public class GameListRefreshConfiguration {
     private static final String WIKI_PAGE = "https://en.wikipedia.org/wiki/List_of_%s_games";
     private static final String WIKI_TABLE_NAME = "softwarelist";
-    private static final int NA_DATE_COLUMN = 7;
+    private static final int NA_DATE_COLUMN = 6;
 
     @Autowired
     private GameRepository gameRepository;
@@ -80,12 +80,12 @@ public class GameListRefreshConfiguration {
         game.setGenres(translator.extractList(tds[1]));
         game.setDeveloper(tds[2].text());
         game.setPublisher(tds[3].text());
-        game.setExclusive(isExclusive(tds[4].text()));
+        game.setExclusive(isExclusive(tds[3].text()));
         game.setReleaseDate(translator.extractDate(tds[NA_DATE_COLUMN]));
         return game;
     }
 
     private boolean isExclusive(String text) {
-        return "Yes".equals(text) || "Console".equals(text) || "Sony".equals(text) || "Microsoft".equals(text);
+        return "Sony Computer Ent.".equals(text) || "Microsoft".equals(text);
     }
 }

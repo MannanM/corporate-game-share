@@ -20,7 +20,8 @@ public class UserTranslator {
         user.getData().setId(entity.getId().toString());
         user.getData().getAttributes().setName(entity.getName());
         user.getData().getAttributes().setOrganisation(entity.getOrganisation());
-//        user.getData().getAttributes().setEmail(entity.getLogin());
+        user.getData().getAttributes().setEmail(entity.getEmail());
+        user.getData().getAttributes().setImageLink(entity.getImageLink());
         if (entity.getConsoles() != null) {
             for (ConsoleEntity console : entity.getConsoles()) {
                 user.getData().getAttributes().getConsoles().add(
@@ -32,9 +33,7 @@ public class UserTranslator {
 
     public UserDetails translateToPrincipal(UserEntity user) {
         UserPrincipal userPrincipal = new UserPrincipal(translate(user));
-        userPrincipal.getData().getAttributes().setEmail(user.getEmail());
         userPrincipal.getData().getAttributes().setRoles(user.getRoles());
-        userPrincipal.getData().getAttributes().setImageLink(user.getImageLink());
         return userPrincipal;
     }
 }

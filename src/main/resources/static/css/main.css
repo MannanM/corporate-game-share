@@ -11,3 +11,10 @@
  margin-right: 5px;
  display: flex;
 }
+
+.thumbnail-game-thumb img {
+ max-height: 180px;
+}
+.thumbnail-game-cap {
+  height: 35px;
+}

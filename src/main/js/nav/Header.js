@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 export default class Header extends Component {
  render() {
+  const id = this.props.user ? this.props.user.data.id : -1;
 		return (
 		  <Navbar inverse collapseOnSelect>
       <Navbar.Header>
@@ -26,7 +27,7 @@ export default class Header extends Component {
             </NavItem>
           </LinkContainer>
 
-          <LinkContainer to='/my-profile'>
+          <LinkContainer to={`/user/${id}`}>
             <NavItem eventKey={3}>
               My Profile
             </NavItem>
