@@ -8,7 +8,7 @@ facebook:
   client:
     clientId: 304009870383533
 
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop

@@ -9,6 +9,7 @@ import Page from './nav/Page';
 
 import GameList from './page/GameList';
 import Home from './page/Home';
+import Privacy from './page/Privacy';
 import UserProfile from './page/UserProfile';
 import GameProfile from './page/GameProfile';
 
@@ -43,6 +44,7 @@ class App extends Component {
                  <Page title='Games' subtitle='available to collect and share'><GameList {...props} /></Page>} />
               <Route exact path='/game/:id' render={(props) => <GameProfile {...props} />} />
               <Route exact path='/user/:id' render={(props) => <UserProfile {...props} />} />
+              <Route exact path='/privacy' component={() => <Page title='Privacy Policy' subtitle='Effective Date 2018-10-13'><Privacy /></Page>} />
             </Col>
           </Row>
         </Grid>

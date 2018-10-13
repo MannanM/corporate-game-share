@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class LibraryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "library_seq_gen")
-    @SequenceGenerator(name = "library_seq_gen", sequenceName = "library_id_seq")
+    @SequenceGenerator(name = "library_seq_gen", sequenceName = "library_id_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne(optional = false)
