@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 export default class Header extends Component {
  render() {
-  const id = this.props.user ? this.props.user.data.id : -1;
+  const id = this.props.user ? this.props.user.data.id : null;
 		return (
 		  <Navbar inverse collapseOnSelect>
       <Navbar.Header>
@@ -21,17 +21,18 @@ export default class Header extends Component {
             </NavItem>
           </LinkContainer>
 
-          <LinkContainer to='/game/list'>
+          <LinkContainer to='/browse/game'>
             <NavItem eventKey={2}>
               Game List
             </NavItem>
           </LinkContainer>
-
-          <LinkContainer to={`/user/${id}`}>
-            <NavItem eventKey={3}>
-              My Profile
-            </NavItem>
-          </LinkContainer>
+          { id &&
+             <LinkContainer to={`/user/${id}`}>
+               <NavItem eventKey={3}>
+                 My Profile
+               </NavItem>
+             </LinkContainer>
+          }
         </Nav>
         <Navbar.Text pullRight>
           { this.props.user ? 'Signed in as: ' + this.props.user.data.attributes.name : '' }

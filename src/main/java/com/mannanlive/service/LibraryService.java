@@ -4,6 +4,7 @@ import com.mannanlive.entity.GameState;
 import com.mannanlive.entity.LibraryEntity;
 import com.mannanlive.model.library.Library;
 import com.mannanlive.model.library.LibraryGameData;
+import com.mannanlive.model.usermodel.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
@@ -34,10 +35,8 @@ public class LibraryService extends AbstractGameService {
         return new Library(collect);
     }
 
-    public void addGameToLibrary(Authentication user, Long userId, LibraryGameData data) {
-        validateLibraryIsUsers(user, userId);
-
-        LibraryEntity libraryEntity = translator.translateNew(userId, data);
+    public void addGameToLibrary(String userId, LibraryGameData data) {
+        LibraryEntity libraryEntity = translator.translateNew(Long.parseLong(userId), data);
         try {
             libraryRepository.save(libraryEntity);
             gameImageService.refreshGameImage(libraryEntity.getGame().getId());

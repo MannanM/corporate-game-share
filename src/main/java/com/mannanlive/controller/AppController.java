@@ -44,12 +44,12 @@ public class AppController implements ErrorController {
 
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
+            //todo: for api requests return JSON
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return singlePageApp(model);
             }
         }
-        //todo: add nice custom error page
         return singlePageApp(model);
     }
 

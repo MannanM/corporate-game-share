@@ -56,6 +56,15 @@ class GameList extends Component {
 
 	render() {
 	 const { SearchBar } = Search;
+	 const rowEvents = {
+    onClick: (e, row, rowIndex) => {
+      const location = {
+        pathname: '/game/' + row.data.id,
+        state: { game: row }
+      };
+      this.props.history.push(location);
+    }
+  };
 
 		return (
     <ToolkitProvider keyField='data.id' data={ this.state.games } columns={ this.columns() }
@@ -76,6 +85,7 @@ class GameList extends Component {
          </Row>
          <br />
          <BootstrapTable pagination={ paginationFactory() }
+           rowEvents={ rowEvents }
            noDataIndication="Table is Empty"
            striped hover condensed
            { ...props.baseProps }

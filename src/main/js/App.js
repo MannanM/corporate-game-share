@@ -10,6 +10,7 @@ import Page from './nav/Page';
 import GameList from './page/GameList';
 import Home from './page/Home';
 import UserProfile from './page/UserProfile';
+import GameProfile from './page/GameProfile';
 
 import { WhoAmI } from './Client';
 
@@ -38,7 +39,9 @@ class App extends Component {
           <Row>
             <Col>
               <Route exact path='/' component={() => <Page title='Welcome' subtitle='to the Game-Share app!'><Home /></Page>} />
-              <Route exact path='/game/list' component={() => <Page title='Games' subtitle='available to collect and share'><GameList /></Page>} />
+              <Route exact path='/browse/game' component={(props) =>
+                 <Page title='Games' subtitle='available to collect and share'><GameList {...props} /></Page>} />
+              <Route exact path='/game/:id' render={(props) => <GameProfile {...props} />} />
               <Route exact path='/user/:id' render={(props) => <UserProfile {...props} />} />
             </Col>
           </Row>
