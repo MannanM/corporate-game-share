@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Controller
@@ -39,7 +40,7 @@ public class AppController implements ErrorController {
     }
 
     @RequestMapping("/error")
-    public String handleError(HttpServletRequest request, Model model) {
+    public String handleError(HttpServletRequest request, HttpServletResponse response, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
@@ -47,6 +48,7 @@ public class AppController implements ErrorController {
             //todo: for api requests return JSON
 
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
+                response.setStatus(200);
                 return singlePageApp(model);
             }
         }

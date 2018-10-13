@@ -35,7 +35,7 @@ public class GameListRefreshConfiguration {
 
     private WikiElementTranslator translator = new WikiElementTranslator();
 
-    @Scheduled(fixedRate = 1000 * 60 * 60 * 24, initialDelay = 1000)
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 24, initialDelay = 1000 * 60)
     public void refreshGames() {
         consoleRepository.findAll().forEach(this::refreshGamesForPlatform);
     }
