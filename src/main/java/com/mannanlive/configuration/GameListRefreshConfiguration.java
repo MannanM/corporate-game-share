@@ -59,11 +59,13 @@ public class GameListRefreshConfiguration {
             game.setId(entity.getId());
             game.setImageLink(entity.getImageLink());
         }
-        gameRepository.save(game);
+        if (!"Title".equalsIgnoreCase(game.getName())) {
+            gameRepository.save(game);
+        }
     }
 
     private void processRow(ConsoleEntity console, Element row) {
-        Elements cells = row.select("td");
+        Elements cells = row.children();
         if (cells.size() >= NA_DATE_COLUMN) {
             GameEntity game = extractGameData(cells);
             game.setConsole(console);

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, Row, Col } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { Link } from 'react-router-dom'
 
 import { GetGames } from "../Client";
-import ConsoleSelect  from "../ConsoleSelect";
+import ConsoleSelect from "../element/ConsoleSelect";
+import AddButton from "../element/AddButton";
 
 class GameList extends Component {
  constructor(props, context) {
@@ -40,7 +41,12 @@ class GameList extends Component {
 
  columns() {
    return [{
-     dataField: 'data.attributes.name', text: 'Name', sort: true
+     dataField: 'data.attributes.name', text: 'Name', sort: true,
+        formatter: (cellContent, row) => (
+        <Link to={{ pathname: `/game/${row.data.id}`, state: {game: row} }}>
+          {row.data.attributes.name}
+        </Link>
+     )
    }, {
      dataField: 'data.attributes.developer', text: 'Developer', sort: true
    }, {
@@ -51,20 +57,16 @@ class GameList extends Component {
      dataField: 'data.attributes.genres',
      text: 'Genres',
      formatter: this.genreFormatter
+   }, {
+     dataField: 'df1',
+     isDummyField: true,
+     text: '',
+     formatter: (cellContent, row) => ( <AddButton gameId={row.data.id} bsSize='normal' /> )
    }];
  }
 
 	render() {
 	 const { SearchBar } = Search;
-	 const rowEvents = {
-    onClick: (e, row, rowIndex) => {
-      const location = {
-        pathname: '/game/' + row.data.id,
-        state: { game: row }
-      };
-      this.props.history.push(location);
-    }
-  };
 
 		return (
     <ToolkitProvider keyField='data.id' data={ this.state.games } columns={ this.columns() }
@@ -85,7 +87,6 @@ class GameList extends Component {
          </Row>
          <br />
          <BootstrapTable pagination={ paginationFactory() }
-           rowEvents={ rowEvents }
            noDataIndication="Table is Empty"
            striped hover condensed
            { ...props.baseProps }

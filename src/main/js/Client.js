@@ -1,31 +1,14 @@
+export function WhoAmI() { return get('/v1/users/me'); }
+export function GetConsoles() { return get('/v1/consoles'); }
+export function GetUser(id) { return get('/v1/users/' + id); }
+export function GetLibrary(id) { return get('/v1/users/' + id + '/games'); }
+export function GetGame(id) { return get('/v1/games/' + id); }
+export function GetGames(console) { return get('/v1/games?console=' + console); }
 
-export function GetGames(console) {
- return fetch('/v1/games?console=' + console, { headers: { "Accept": "application/vnd.api+json" }})
-    .then(response => response.json());
-}
-
-export function WhoAmI() {
- return api('/v1/users/me');
-}
-
-export function GetUser(id) {
- return api('/v1/users/' + id);
-}
-
-export function GetLibrary(id) {
- return api('/v1/users/' + id + '/games');
-}
-
-export function GetGame(id) {
- return api('/v1/games/' + id);
-}
-
-export function AddToLibrary(id) {
- return send('/v1/users/games', {attributes: {game: {id: id}}});
-}
+export function AddToLibrary(id) { return send('/v1/users/games', {attributes: {game: {id: id}}}); }
 
 export function send(uri, data = {}, method = 'POST') {
-    return api(uri, {
+    return get(uri, {
         method: method,
         cache: "no-cache",
         headers: {
@@ -35,7 +18,7 @@ export function send(uri, data = {}, method = 'POST') {
     });
 }
 
-export default function api(uri, options = {}) {
+export default function get(uri, options = {}) {
   options.headers = Object.assign({
     'Accept': 'application/vnd.api+json'
   }, options.headers);

@@ -31,9 +31,10 @@ class AddButton extends Component {
 
  render() {
    const { isLoading, message } = this.state;
-   return <Button bsStyle="primary" bsSize="large" disabled={isLoading}
+   const bsSize = this.props.bsSize ? this.props.bsSize : 'large';
+   return <Button bsStyle="primary" bsSize={bsSize} disabled={isLoading}
                onClick={!isLoading ? this.handleClick : null} >
-             {message ? message : defaultMessage}
+             {message}
           </Button>
  }
 }
